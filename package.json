@@ -1,12 +1,11 @@
 {
   "name": "@sanity/block-content-to-hyperscript",
   "description": "Function for transforming Sanity block content to HyperScript",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "lib/index.js",
   "umd": "umd/blocksToHyperScript.min.js",
   "scripts": {
-    "browserify":
-      "NODE_ENV=production BROWSERIFY_ENV=build DEBUG='' browserify -t envify -g uglifyify lib/index.js -o umd/blocksToHyperScript.js --standalone=blocksToHyperScript",
+    "browserify": "NODE_ENV=production BROWSERIFY_ENV=build DEBUG='' browserify -t envify -g uglifyify lib/index.js -o umd/blocksToHyperScript.js --standalone=blocksToHyperScript",
     "build": "npm run clean && npm run compile && npm run browserify && npm run minify",
     "watch": "npm run compile -- --watch",
     "clean": "rimraf lib coverage .nyc_output umd/*.js",
@@ -52,6 +51,8 @@
   },
   "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
   "jest": {
-    "collectCoverageFrom": ["src/**/*.js"]
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }
