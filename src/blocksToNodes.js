@@ -8,11 +8,18 @@ const optionProps = ['projectId', 'dataset', 'imageOptions']
 const isDefined = val => typeof val !== 'undefined'
 const defaults = {imageOptions: {}}
 
+function quickFixDeepClone(value) {
+  return JSON.parse(JSON.stringify(value))
+}
+
 function blocksToNodes(h, properties) {
   const {defaultSerializers, serializeSpan} = getSerializers(h)
 
   const props = objectAssign({}, defaults, properties)
-  const blocks = nestLists(Array.isArray(props.blocks) ? props.blocks : [props.blocks])
+  const blocks = nestLists(
+    // Todo: fix mutation of blocks properly
+    quickFixDeepClone(Array.isArray(props.blocks) ? props.blocks : [props.blocks])
+  )
   const serializers = mergeSerializers(defaultSerializers, props.serializers || {})
   const options = optionProps.reduce((opts, key) => {
     const value = props[key]
