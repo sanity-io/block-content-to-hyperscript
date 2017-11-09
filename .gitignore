@@ -19,4 +19,5 @@ yarn.lock
 package-lock.json
 
 # UMD bundle
-umd
+umd/*
+!umd/.gitkeep
