@@ -1,3 +1,5 @@
+const objectAssign = require('object-assign')
+
 /* eslint-disable max-depth, complexity */
 function nestLists(blocks) {
   const tree = []
@@ -36,7 +38,7 @@ function nestLists(blocks) {
 
       // Clone the last child while adding our new list as the last child of it
       const lastListItem = lastChild(currentList)
-      const newLastChild = Object.assign({}, lastListItem, {
+      const newLastChild = objectAssign({}, lastListItem, {
         children: lastListItem.children.concat(newList)
       })
 
