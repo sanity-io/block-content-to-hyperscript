@@ -1,7 +1,7 @@
 {
   "name": "@sanity/block-content-to-hyperscript",
   "description": "Function for transforming Sanity block content to HyperScript",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "lib/index.js",
   "umd": "umd/blocksToHyperScript.min.js",
   "scripts": {
