@@ -1,3 +1,5 @@
+const objectAssign = require('object-assign')
+
 /* eslint-disable max-depth, complexity */
 function nestLists(blocks) {
   const tree = []
@@ -27,7 +29,23 @@ function nestLists(blocks) {
     // Different list props, are we going deeper?
     if (block.level > currentList.level) {
       const newList = listFromBlock(block)
-      lastChild(currentList).children.push(newList)
+
+      // Because HTML is kinda weird, nested lists needs to be nested within list items
+      // So while you would think that we could populate the parent list with a new sub-list,
+      // We actually have to target the last list element (child) of the parent.
+      // However, at this point we need to be very careful - simply pushing to the list of children
+      // will mutate the input, and we don't want to blindly clone the entire tree.
+
+      // Clone the last child while adding our new list as the last child of it
+      const lastListItem = lastChild(currentList)
+      const newLastChild = objectAssign({}, lastListItem, {
+        children: lastListItem.children.concat(newList)
+      })
+
+      // Swap the last child
+      currentList.children[currentList.children.length - 1] = newLastChild
+
+      // Set the newly created, deeper list as the current
       currentList = newList
       continue
     }

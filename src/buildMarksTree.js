@@ -92,7 +92,9 @@ function sortMarksByOccurences(span, i, spans) {
   }, {})
 
   const sortByOccurence = sortMarks.bind(null, markOccurences)
-  return span.marks.sort(sortByOccurence)
+
+  // Slicing because sort() mutates the input
+  return span.marks.slice().sort(sortByOccurence)
 }
 
 function sortMarks(occurences, markA, markB) {
