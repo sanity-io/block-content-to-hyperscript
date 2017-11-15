@@ -1,6 +1,7 @@
 const objectAssign = require('object-assign')
 const buildMarksTree = require('./buildMarksTree')
 const nestLists = require('./nestLists')
+const generateKeys = require('./generateKeys')
 const getSerializers = require('./serializers')
 
 // Properties to extract from props and pass to serializers as options
@@ -12,7 +13,9 @@ function blocksToNodes(h, properties) {
   const {defaultSerializers, serializeSpan} = getSerializers(h)
 
   const props = objectAssign({}, defaults, properties)
-  const blocks = nestLists(Array.isArray(props.blocks) ? props.blocks : [props.blocks])
+  const rawBlocks = Array.isArray(props.blocks) ? props.blocks : [props.blocks]
+  const keyedBlocks = generateKeys(rawBlocks)
+  const blocks = nestLists(keyedBlocks)
   const serializers = mergeSerializers(defaultSerializers, props.serializers || {})
   const options = optionProps.reduce((opts, key) => {
     const value = props[key]
