@@ -1,6 +1,6 @@
 # block-content-to-hyperscript
 
-Render an array of [block text](https://sanity.io/docs/schema-types/block-text-type) from Sanity with [HyperScript](https://github.com/hyperhype/hyperscript).
+Render an array of [block text](https://www.sanity.io/docs/schema-types/block-type) from Sanity with [HyperScript](https://github.com/hyperhype/hyperscript).
 
 ## Installing
 
