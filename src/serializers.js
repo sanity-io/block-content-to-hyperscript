@@ -23,9 +23,12 @@ module.exports = h => {
     const markType = isPlain ? mark : mark._type
     const serializer = props.serializers.marks[markType]
     if (!serializer) {
-      throw new Error(
+      // @todo Revert back to throwing errors?
+      // eslint-disable-next-line no-console
+      console.warn(
         `Unknown mark type "${markType}", please specify a serializer for it in the \`serializers.marks\` prop`
       )
+      return h('span', null, children)
     }
 
     return h(serializer, props.node, children)
