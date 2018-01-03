@@ -7,7 +7,7 @@ const buildMarksTree = block => {
   }
 
   const sortedMarks = children.map(sortMarksByOccurences)
-  const rootNode = {children: []}
+  const rootNode = {_type: 'span', children: []}
   let nodeStack = [rootNode]
 
   children.forEach((span, i) => {
@@ -38,7 +38,7 @@ const buildMarksTree = block => {
     nodeStack = nodeStack.slice(0, pos)
 
     // Add needed nodes
-    let currentNode = nodeStack[nodeStack.length - 1]
+    let currentNode = findLastParentNode(nodeStack)
     marksNeeded.forEach(mark => {
       const node = {
         _type: 'span',
@@ -56,12 +56,16 @@ const buildMarksTree = block => {
     // Split at newlines to make individual line chunks, but keep newline
     // characters as individual elements in the array. We use these characters
     // in the span serializer to trigger hard-break rendering
-    const lines = span.text.split('\n')
-    for (let line = lines.length; line-- > 1; ) {
-      lines.splice(line, 0, '\n')
-    }
+    if (isTextSpan(span)) {
+      const lines = span.text.split('\n')
+      for (let line = lines.length; line-- > 1; ) {
+        lines.splice(line, 0, '\n')
+      }
 
-    currentNode.children = currentNode.children.concat(lines)
+      currentNode.children = currentNode.children.concat(lines)
+    } else {
+      currentNode.children = currentNode.children.concat(span)
+    }
   })
 
   return rootNode.children
@@ -73,7 +77,7 @@ const buildMarksTree = block => {
 // 3. Built-in, plain marks (bold, emphasis, code etc)
 function sortMarksByOccurences(span, i, spans) {
   if (!span.marks || span.marks.length === 0) {
-    return span.marks
+    return span.marks || []
   }
 
   const markOccurences = span.marks.reduce((occurences, mark) => {
@@ -81,7 +85,8 @@ function sortMarksByOccurences(span, i, spans) {
 
     for (let siblingIndex = i + 1; siblingIndex < spans.length; siblingIndex++) {
       const sibling = spans[siblingIndex]
-      if (sibling.marks.includes(mark)) {
+
+      if (sibling.marks && Array.isArray(sibling.marks) && sibling.marks.includes(mark)) {
         occurences[mark]++
       } else {
         break
@@ -121,6 +126,21 @@ function sortMarks(occurences, markA, markB) {
   }
 
   return 0
+}
+
+function isTextSpan(node) {
+  return typeof node.text === 'string' && Array.isArray(node.marks)
+}
+
+function findLastParentNode(nodes) {
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const node = nodes[i]
+    if (node._type === 'span' && node.children) {
+      return node
+    }
+  }
+
+  return undefined
 }
 
 module.exports = buildMarksTree

@@ -82,7 +82,7 @@ module.exports = h => {
   }
 
   // Serializer that recursively calls itself, producing a hyperscript tree of spans
-  function serializeSpan(span, serializers, index) {
+  function serializeSpan(span, serializers, index, options) {
     if (span === '\n' && serializers.hardBreak) {
       return h(serializers.hardBreak, {key: `hb-${index}`})
     }
@@ -91,9 +91,16 @@ module.exports = h => {
       return span
     }
 
-    const serializedNode = objectAssign({}, span, {
-      children: span.children.map((child, i) => serializeSpan(child, serializers, i))
-    })
+    let children
+    if (span.children) {
+      children = {
+        children: span.children.map((child, i) =>
+          options.serializeNode(child, i, span.children, true)
+        )
+      }
+    }
+
+    const serializedNode = objectAssign({}, span, children)
 
     return h(serializers.span, {
       key: span._key || `span-${index}`,

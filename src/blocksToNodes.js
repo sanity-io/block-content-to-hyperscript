@@ -35,7 +35,7 @@ function blocksToNodes(h, properties) {
     }
 
     if (isSpan(node)) {
-      return serializeSpan(node, serializers, index)
+      return serializeSpan(node, serializers, index, {serializeNode})
     }
 
     return serializeBlock(node, index, isInline)
