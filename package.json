@@ -26,7 +26,7 @@
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
-    "@sanity/block-content-tests": "^0.0.7",
+    "@sanity/block-content-tests": "^0.0.8",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.1.1",
     "babel-preset-env": "^1.6.0",
