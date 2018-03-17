@@ -99,7 +99,9 @@ function mergeSerializers(defaultSerializers, userSerializers) {
     } else if (type === 'object') {
       acc[key] = objectAssign({}, defaultSerializers[key], userSerializers[key])
     } else {
-      acc[key] = userSerializers[key] || defaultSerializers[key]
+      acc[key] = typeof userSerializers[key] === 'undefined'
+        ? defaultSerializers[key]
+        : userSerializers[key]
     }
     return acc
   }, {})
