@@ -133,7 +133,10 @@ module.exports = h => {
 
     block: BlockSerializer,
     span: SpanSerializer,
-    hardBreak: HardBreakSerializer
+    hardBreak: HardBreakSerializer,
+
+    // Empty nodes (React uses null, hyperscript with empty strings)
+    empty: ''
   }
 
   return {

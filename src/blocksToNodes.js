@@ -75,7 +75,7 @@ function blocksToNodes(h, properties) {
     return h('div', containerProps, nodes)
   }
 
-  return nodes[0] || ''
+  return nodes[0] || serializers.empty
 }
 
 function isList(block) {
@@ -93,10 +93,13 @@ function isSpan(block) {
 // Recursively merge/replace default serializers with user-specified serializers
 function mergeSerializers(defaultSerializers, userSerializers) {
   return Object.keys(defaultSerializers).reduce((acc, key) => {
-    if (typeof defaultSerializers[key] === 'function') {
+    const type = typeof defaultSerializers[key]
+    if (type === 'function') {
       acc[key] = isDefined(userSerializers[key]) ? userSerializers[key] : defaultSerializers[key]
-    } else {
+    } else if (type === 'object') {
       acc[key] = objectAssign({}, defaultSerializers[key], userSerializers[key])
+    } else {
+      acc[key] = userSerializers[key] || defaultSerializers[key]
     }
     return acc
   }, {})
