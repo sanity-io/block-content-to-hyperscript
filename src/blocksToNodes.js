@@ -95,7 +95,13 @@ function blocksToNodes(h, properties) {
     return h(serializers.container, containerProps, nodes)
   }
 
-  return nodes[0] || serializers.empty
+  if (nodes[0]) {
+    return nodes[0]
+  }
+
+  return typeof serializers.empty === 'function'
+    ? h(serializers.empty)
+    : serializers.empty
 }
 
 function isList(block) {
