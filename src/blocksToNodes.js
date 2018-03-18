@@ -3,6 +3,7 @@ const buildMarksTree = require('./buildMarksTree')
 const nestLists = require('./nestLists')
 const generateKeys = require('./generateKeys')
 const getSerializers = require('./serializers')
+const mergeSerializers = require('./mergeSerializers')
 
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions']
@@ -88,23 +89,6 @@ function isListItem(block) {
 
 function isSpan(block) {
   return typeof block === 'string' || block.marks || block._type === 'span'
-}
-
-// Recursively merge/replace default serializers with user-specified serializers
-function mergeSerializers(defaultSerializers, userSerializers) {
-  return Object.keys(defaultSerializers).reduce((acc, key) => {
-    const type = typeof defaultSerializers[key]
-    if (type === 'function') {
-      acc[key] = isDefined(userSerializers[key]) ? userSerializers[key] : defaultSerializers[key]
-    } else if (type === 'object') {
-      acc[key] = objectAssign({}, defaultSerializers[key], userSerializers[key])
-    } else {
-      acc[key] = typeof userSerializers[key] === 'undefined'
-        ? defaultSerializers[key]
-        : userSerializers[key]
-    }
-    return acc
-  }, {})
 }
 
 module.exports = blocksToNodes
