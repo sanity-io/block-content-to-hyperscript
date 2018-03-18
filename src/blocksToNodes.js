@@ -83,9 +83,10 @@ function blocksToNodes(h, properties) {
 
   function serializeList(list) {
     const type = list.listItem
+    const level = list.level
     const key = list._key
     const children = list.children.map(serializeNode)
-    return h(serializers.list, {key, type, options}, children)
+    return h(serializers.list, {key, level, type, options}, children)
   }
 
   const nodes = blocks.map(serializeNode)
