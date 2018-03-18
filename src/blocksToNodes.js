@@ -16,8 +16,9 @@ function blocksToNodes(h, properties) {
   const props = objectAssign({}, defaults, properties)
   const rawBlocks = Array.isArray(props.blocks) ? props.blocks : [props.blocks]
   const keyedBlocks = generateKeys(rawBlocks)
-  const blocks = nestLists(keyedBlocks)
+  const blocks = nestLists(keyedBlocks, props.listNestMode)
   const serializers = mergeSerializers(defaultSerializers, props.serializers || {})
+
   const options = optionProps.reduce((opts, key) => {
     const value = props[key]
     if (isDefined(value)) {
