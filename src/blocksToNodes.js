@@ -33,7 +33,7 @@ function blocksToNodes(h, properties) {
     }
 
     if (isListItem(node)) {
-      return serializeListItem(node)
+      return serializeListItem(node, findListItemIndex(node, siblings))
     }
 
     if (isSpan(node)) {
@@ -41,6 +41,23 @@ function blocksToNodes(h, properties) {
     }
 
     return serializeBlock(node, index, isInline)
+  }
+
+  function findListItemIndex(node, siblings) {
+    let index = 0
+    for (let i = 0; i < siblings.length; i++) {
+      if (siblings[i] === node) {
+        return index
+      }
+
+      if (!isListItem(siblings[i])) {
+        continue
+      }
+
+      index++
+    }
+
+    return index
   }
 
   function serializeBlock(block, index, isInline) {
@@ -57,11 +74,11 @@ function blocksToNodes(h, properties) {
     return h(serializers.block, blockProps, children)
   }
 
-  function serializeListItem(block) {
+  function serializeListItem(block, index) {
     const key = block._key
     const tree = buildMarksTree(block)
     const children = tree.map(serializeNode)
-    return h(serializers.listItem, {node: block, key, options}, children)
+    return h(serializers.listItem, {node: block, index, key, options}, children)
   }
 
   function serializeList(list) {
