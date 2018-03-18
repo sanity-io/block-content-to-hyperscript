@@ -92,7 +92,7 @@ function blocksToNodes(h, properties) {
   const nodes = blocks.map(serializeNode)
   if (nodes.length > 1) {
     const containerProps = props.className ? {className: props.className} : {}
-    return h('div', containerProps, nodes)
+    return h(serializers.container, containerProps, nodes)
   }
 
   return nodes[0] || serializers.empty

@@ -28,7 +28,7 @@ module.exports = h => {
       console.warn(
         `Unknown mark type "${markType}", please specify a serializer for it in the \`serializers.marks\` prop`
       )
-      return h('span', null, children)
+      return h(props.serializers.markFallback, null, children)
     }
 
     return h(serializer, props.node, children)
@@ -88,7 +88,7 @@ module.exports = h => {
     }
 
     if (typeof span === 'string') {
-      return span
+      return serializers.text ? h(serializers.text, {key: `text-${index}`}, span) : span
     }
 
     let children
@@ -134,6 +134,15 @@ module.exports = h => {
     block: BlockSerializer,
     span: SpanSerializer,
     hardBreak: HardBreakSerializer,
+
+    // Container element
+    container: 'div',
+
+    // When we can't resolve the mark properly, use this renderer as the container
+    markFallback: 'span',
+
+    // Allow overriding text renderer, but leave undefined to just use plain strings by default
+    text: undefined,
 
     // Empty nodes (React uses null, hyperscript with empty strings)
     empty: ''
