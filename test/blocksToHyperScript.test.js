@@ -1,9 +1,11 @@
 /* eslint-disable id-length, max-len */
 const runTests = require('@sanity/block-content-tests')
 const blocksToHyperScript = require('../src')
+const getSerializers = require('../src/serializers')
 
 const h = blocksToHyperScript.renderNode
 const getImageUrl = blocksToHyperScript.getImageUrl
+const {defaultSerializers, serializeSpan} = getSerializers(h)
 const normalize = html =>
   html
     .replace(/<br(.*?)\/>/g, '<br$1>')
@@ -18,8 +20,8 @@ const normalize = html =>
     })
 
 const render = options => {
-  const rootNode = blocksToHyperScript(options)
+  const rootNode = blocksToHyperScript(options, defaultSerializers, serializeSpan)
   return rootNode.outerHTML || rootNode
 }
 
-runTests({render, h, normalize, getImageUrl})
+runTests({render, h, normalize, getImageUrl, defaultSerializers, serializeSpan})
