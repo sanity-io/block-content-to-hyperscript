@@ -15,8 +15,11 @@ const renderNode = (serializer, properties, children) => {
   return hyperscript(tag, props, childNodes)
 }
 
-const {defaultSerializers} = getSerializers(renderNode)
-const blockContentToHyperscript = blocksToNodes.bind(null, renderNode)
+const {defaultSerializers, serializeSpan} = getSerializers(renderNode)
+
+const blockContentToHyperscript = options => {
+  return blocksToNodes(renderNode, options, defaultSerializers, serializeSpan)
+}
 
 // Expose default serializers to the user
 blockContentToHyperscript.defaultSerializers = defaultSerializers
