@@ -1,9 +1,12 @@
 /* eslint-disable id-length, max-len */
 const runTests = require('@sanity/block-content-tests')
+const internals = require('../src/internals')
 const blocksToHyperScript = require('../src')
+const getSerializers = require('../src/serializers')
 
 const h = blocksToHyperScript.renderNode
 const getImageUrl = blocksToHyperScript.getImageUrl
+const {defaultSerializers, serializeSpan} = getSerializers(h)
 const normalize = html =>
   html
     .replace(/<br(.*?)\/>/g, '<br$1>')
@@ -17,9 +20,58 @@ const normalize = html =>
       return ` style="${style}"`
     })
 
+const fixture = [
+  {
+    _type: 'block',
+    _key: 'foo',
+    children: [
+      {
+        _key: 'bar',
+        _type: 'span',
+        marks: [],
+        text: 'Test',
+        markDefs: [],
+        style: 'normal'
+      }
+    ]
+  }
+]
+
 const render = options => {
   const rootNode = blocksToHyperScript(options)
   return rootNode.outerHTML || rootNode
 }
 
 runTests({render, h, normalize, getImageUrl})
+
+describe('internals', () => {
+  test('exposes blocksToNodes() on internals', () => {
+    const node = internals.blocksToNodes(h, {blocks: fixture}, defaultSerializers, serializeSpan)
+    expect(node.outerHTML).toEqual('<p>Test</p>')
+  })
+
+  test('exposes blocksToNodes() in legacy mode on internals', () => {
+    const node = internals.blocksToNodes(h, {blocks: fixture})
+    expect(node.outerHTML).toEqual('<p>Test</p>')
+  })
+
+  test('exposes getSerializers on internals', () => {
+    const serializers = internals.getSerializers(h)
+    expect(serializers.serializeSpan('hei', serializers.defaultSerializers, 0)).toEqual('hei')
+  })
+
+  test('exposes getImageUrl on internals', () => {
+    const options = {imageOptions: {w: 320, h: 240}}
+    const url = internals.getImageUrl({
+      node: {asset: {url: 'https://foo.bar.baz/img.png'}},
+      options
+    })
+
+    expect(url).toEqual('https://foo.bar.baz/img.png?w=320&h=240')
+  })
+
+  test('exposes mergeSerializers on internals', () => {
+    const serializers = internals.mergeSerializers(defaultSerializers, {})
+    expect(Object.keys(serializers)).toEqual(Object.keys(defaultSerializers))
+  })
+})
