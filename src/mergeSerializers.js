@@ -10,9 +10,8 @@ module.exports = function mergeSerializers(defaultSerializers, userSerializers) 
     } else if (type === 'object') {
       acc[key] = objectAssign({}, defaultSerializers[key], userSerializers[key])
     } else {
-      acc[key] = typeof userSerializers[key] === 'undefined'
-        ? defaultSerializers[key]
-        : userSerializers[key]
+      acc[key] =
+        typeof userSerializers[key] === 'undefined' ? defaultSerializers[key] : userSerializers[key]
     }
     return acc
   }, {})

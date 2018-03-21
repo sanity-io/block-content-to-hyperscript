@@ -10,7 +10,6 @@ const isDefined = val => typeof val !== 'undefined'
 const defaults = {imageOptions: {}}
 
 function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
-
   const props = objectAssign({}, defaults, properties)
   const rawBlocks = Array.isArray(props.blocks) ? props.blocks : [props.blocks]
   const keyedBlocks = generateKeys(rawBlocks)
@@ -97,9 +96,7 @@ function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
     return nodes[0]
   }
 
-  return typeof serializers.empty === 'function'
-    ? h(serializers.empty)
-    : serializers.empty
+  return typeof serializers.empty === 'function' ? h(serializers.empty) : serializers.empty
 }
 
 function isList(block) {
