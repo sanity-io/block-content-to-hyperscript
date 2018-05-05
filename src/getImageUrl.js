@@ -1,4 +1,6 @@
 const generateHelpUrl = require('@sanity/generate-help-url')
+const urlBuilder = require('@sanity/image-url')
+const objectAssign = require('object-assign')
 
 const enc = encodeURIComponent
 const materializeError = `You must either:
@@ -20,16 +22,19 @@ const getQueryString = options => {
 
 const buildUrl = props => {
   const {node, options} = props
+  const {projectId, dataset} = options
   const asset = node.asset
 
   if (!asset) {
     throw new Error('Image does not have required `asset` property')
   }
 
-  const qs = getQueryString(options)
-
   if (asset.url) {
-    return asset.url + qs
+    return asset.url + getQueryString(options)
+  }
+
+  if (!projectId || !dataset) {
+    throw new Error(materializeError)
   }
 
   const ref = asset._ref
@@ -37,14 +42,9 @@ const buildUrl = props => {
     throw new Error('Invalid image reference in block, no `_ref` found on `asset`')
   }
 
-  const {projectId, dataset} = options
-  if (!projectId || !dataset) {
-    throw new Error(materializeError)
-  }
-
-  const [type, id, dimensions, ext] = ref.split('-')
-  const url = `https://cdn.sanity.io/${type}s/${projectId}/${dataset}/${id}-${dimensions}.${ext}${qs}`
-  return url
+  return urlBuilder(objectAssign({projectId, dataset}, options.imageOptions || {}))
+    .image(asset)
+    .toString()
 }
 
 module.exports = buildUrl

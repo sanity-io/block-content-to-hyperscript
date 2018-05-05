@@ -21,26 +21,27 @@
   "author": "Sanity <hello@sanity.io>",
   "license": "MIT",
   "dependencies": {
-    "@sanity/generate-help-url": "^0.123.0",
+    "@sanity/generate-help-url": "^0.128.3",
+    "@sanity/image-url": "^0.131.0",
     "hyperscript": "^2.0.2",
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
     "@sanity/block-content-tests": "^0.0.9",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.1.2",
-    "babel-preset-env": "^1.6.0",
-    "browserify": "^14.4.0",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
+    "browserify": "^16.2.2",
     "envify": "^4.1.0",
-    "eslint": "^4.14.0",
+    "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.4.0",
     "eslint-config-sanity": "^3.0.1",
-    "eslint-plugin-import": "^2.7.0",
-    "jest": "^22.0.4",
-    "prettier": "^1.7.0",
+    "eslint-plugin-import": "^2.11.0",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
-    "uglify-js": "^3.3.4",
-    "uglifyify": "^4.0.3"
+    "uglify-js": "^3.3.25",
+    "uglifyify": "^5.0.0"
   },
   "repository": {
     "type": "git",
