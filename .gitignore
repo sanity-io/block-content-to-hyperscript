@@ -14,10 +14,6 @@ node_modules
 # Other snargh
 .DS_Store
 
-# Lockfiles
-yarn.lock
-package-lock.json
-
 # UMD bundle
 umd/*
 !umd/.gitkeep
