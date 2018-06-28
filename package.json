@@ -4,6 +4,7 @@
   "version": "1.3.4",
   "main": "lib/index.js",
   "umd": "umd/blocksToHyperScript.min.js",
+  "unpkg": "umd/blocksToHyperScript.min.js",
   "scripts": {
     "browserify": "NODE_ENV=production BROWSERIFY_ENV=build DEBUG='' browserify -t envify -g uglifyify lib/index.js -o umd/blocksToHyperScript.js --standalone=blocksToHyperScript",
     "build": "npm run clean && npm run compile && npm run browserify && npm run minify",
