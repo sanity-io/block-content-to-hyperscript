@@ -43,7 +43,7 @@ const buildUrl = props => {
   }
 
   return urlBuilder(objectAssign({projectId, dataset}, options.imageOptions || {}))
-    .image(asset)
+    .image(node)
     .toString()
 }
 
