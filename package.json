@@ -21,13 +21,13 @@
   "author": "Sanity <hello@sanity.io>",
   "license": "MIT",
   "dependencies": {
-    "@sanity/generate-help-url": "^0.128.3",
-    "@sanity/image-url": "^0.131.0",
+    "@sanity/generate-help-url": "^0.132.5",
+    "@sanity/image-url": "^0.132.5",
     "hyperscript": "^2.0.2",
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
-    "@sanity/block-content-tests": "^0.0.9",
+    "@sanity/block-content-tests": "^0.0.10",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.7.0",
