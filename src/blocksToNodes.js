@@ -75,7 +75,7 @@ function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
     const key = block._key
     const tree = buildMarksTree(block)
     const children = tree.map(serializeNode)
-    return h(serializers.listItem, {node: block, index, key, options}, children)
+    return h(serializers.listItem, {node: block, serializers, index, key, options}, children)
   }
 
   function serializeList(list) {

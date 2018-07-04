@@ -42,7 +42,14 @@ module.exports = h => {
 
   // Low-level list item serializer
   function ListItemSerializer(props) {
-    return h('li', null, props.children)
+    const children =
+      !props.node.style || props.node.style === 'normal'
+        ? // Don't wrap plain text in paragraphs inside of a list item
+          props.children
+        : // But wrap any other style in whatever the block serializer says to use
+          h(props.serializers.types.block, props, props.children)
+
+    return h('li', null, children)
   }
 
   // Renderer of an actual block of type `block`. Confusing, we know.
