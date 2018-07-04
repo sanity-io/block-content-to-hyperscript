@@ -55,12 +55,12 @@ describe('internals', () => {
     expect(node.outerHTML).toEqual('<p>Test</p>')
   })
 
-  test('exposes getSerializers on internals', () => {
+  test('exposes getSerializers() on internals', () => {
     const serializers = internals.getSerializers(h)
     expect(serializers.serializeSpan('hei', serializers.defaultSerializers, 0)).toEqual('hei')
   })
 
-  test('exposes getImageUrl on internals', () => {
+  test('exposes getImageUrl() on internals', () => {
     const options = {imageOptions: {w: 320, h: 240}}
     const url = internals.getImageUrl({
       node: {asset: {url: 'https://foo.bar.baz/img.png'}},
@@ -70,8 +70,25 @@ describe('internals', () => {
     expect(url).toEqual('https://foo.bar.baz/img.png?w=320&h=240')
   })
 
-  test('exposes mergeSerializers on internals', () => {
+  test('exposes mergeSerializers() on internals', () => {
     const serializers = internals.mergeSerializers(defaultSerializers, {})
     expect(Object.keys(serializers)).toEqual(Object.keys(defaultSerializers))
+  })
+
+  test('throws on missing projectId/dataset when encountering images', () => {
+    expect(() => {
+      render({
+        blocks: [
+          {
+            _type: 'image',
+            _key: 'd234a4fa317a',
+            asset: {
+              _type: 'reference',
+              _ref: 'image-YiOKD0O6AdjKPaK24WtbOEv0-3456x2304-jpg'
+            }
+          }
+        ]
+      })
+    }).toThrow(/block-content-image-materializing/)
   })
 })
