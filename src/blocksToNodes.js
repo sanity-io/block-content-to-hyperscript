@@ -86,8 +86,11 @@ function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
     return h(serializers.list, {key, level, type, options}, children)
   }
 
+  // Default to false, so `undefined` will evaluate to the default here
+  const renderContainerOnSingleChild = Boolean(props.renderContainerOnSingleChild)
+
   const nodes = blocks.map(serializeNode)
-  if (nodes.length > 1) {
+  if (renderContainerOnSingleChild || nodes.length > 1) {
     const containerProps = props.className ? {className: props.className} : {}
     return h(serializers.container, containerProps, nodes)
   }
