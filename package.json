@@ -53,6 +53,7 @@
   },
   "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
   "jest": {
+    "testURL": "http://localhost/",
     "collectCoverageFrom": [
       "src/**/*.js"
     ]
