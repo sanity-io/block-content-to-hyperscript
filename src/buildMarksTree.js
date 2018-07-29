@@ -129,7 +129,7 @@ function sortMarks(occurences, markA, markB) {
 }
 
 function isTextSpan(node) {
-  return typeof node.text === 'string' && Array.isArray(node.marks)
+  return typeof node.text === 'string' && (Array.isArray(node.marks) || typeof node.marks === 'undefined')
 }
 
 function findLastParentNode(nodes) {
