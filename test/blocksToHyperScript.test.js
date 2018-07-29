@@ -91,4 +91,22 @@ describe('internals', () => {
       })
     }).toThrow(/block-content-image-materializing/)
   })
+
+  test('treats text spans without marks as text spans', () => {
+    expect(
+      render({
+        blocks: [
+          {
+            _type: 'block',
+            children: [
+              {
+                _type: 'span',
+                text: 'Rush'
+              }
+            ]
+          }
+        ]
+      })
+    ).toEqual('<p>Rush</p>')
+  })
 })
