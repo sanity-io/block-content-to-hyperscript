@@ -24,12 +24,12 @@ const buildMarksTree = block => {
     if (nodeStack.length > 1) {
       for (pos; pos < nodeStack.length; pos++) {
         const mark = nodeStack[pos].markKey
+        const index = marksNeeded.indexOf(mark)
         // eslint-disable-next-line max-depth
-        if (!marksNeeded.includes(mark)) {
+        if (index === -1) {
           break
         }
 
-        const index = marksNeeded.indexOf(mark)
         marksNeeded.splice(index, 1)
       }
     }
@@ -86,7 +86,7 @@ function sortMarksByOccurences(span, i, spans) {
     for (let siblingIndex = i + 1; siblingIndex < spans.length; siblingIndex++) {
       const sibling = spans[siblingIndex]
 
-      if (sibling.marks && Array.isArray(sibling.marks) && sibling.marks.includes(mark)) {
+      if (sibling.marks && Array.isArray(sibling.marks) && sibling.marks.indexOf(mark) !== -1) {
         occurences[mark]++
       } else {
         break
@@ -129,7 +129,10 @@ function sortMarks(occurences, markA, markB) {
 }
 
 function isTextSpan(node) {
-  return typeof node.text === 'string' && (Array.isArray(node.marks) || typeof node.marks === 'undefined')
+  return (
+    typeof node.text === 'string' &&
+    (Array.isArray(node.marks) || typeof node.marks === 'undefined')
+  )
 }
 
 function findLastParentNode(nodes) {
