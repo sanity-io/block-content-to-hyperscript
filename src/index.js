@@ -15,7 +15,7 @@ const renderNode = (serializer, properties, children) => {
   return hyperscript(tag, props, childNodes)
 }
 
-const {defaultSerializers, serializeSpan} = getSerializers(renderNode)
+const {defaultSerializers, serializeSpan} = getSerializers(renderNode, {useDashedStyles: true})
 
 const blockContentToHyperscript = options => {
   return blocksToNodes(renderNode, options, defaultSerializers, serializeSpan)

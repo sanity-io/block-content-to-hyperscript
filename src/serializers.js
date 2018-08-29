@@ -1,7 +1,9 @@
 const objectAssign = require('object-assign')
 const getImageUrl = require('./getImageUrl')
 
-module.exports = h => {
+module.exports = (h, serializerOpts) => {
+  const serializeOptions = serializerOpts || {useDashedStyles: false}
+
   // Low-level block serializer
   function BlockSerializer(props) {
     const {node, serializers, options, isInline, children} = props
@@ -72,7 +74,11 @@ module.exports = h => {
   }
 
   function UnderlineSerializer(props) {
-    return h('span', {style: {textDecoration: 'underline'}}, props.children)
+    const style = serializeOptions.useDashedStyles
+      ? {'text-decoration': 'underline'}
+      : {textDecoration: 'underline'}
+
+    return h('span', {style}, props.children)
   }
 
   function StrikeThroughSerializer(props) {
