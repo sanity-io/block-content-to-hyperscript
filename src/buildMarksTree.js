@@ -130,6 +130,7 @@ function sortMarks(occurences, markA, markB) {
 
 function isTextSpan(node) {
   return (
+    node._type === 'span' &&
     typeof node.text === 'string' &&
     (Array.isArray(node.marks) || typeof node.marks === 'undefined')
   )
