@@ -22,8 +22,8 @@
   "author": "Sanity <hello@sanity.io>",
   "license": "MIT",
   "dependencies": {
-    "@sanity/generate-help-url": "^0.132.5",
-    "@sanity/image-url": "^0.132.5",
+    "@sanity/generate-help-url": "^0.136.0",
+    "@sanity/image-url": "^0.136.0",
     "hyperscript": "^2.0.2",
     "object-assign": "^4.1.1"
   },
@@ -39,7 +39,7 @@
     "eslint-config-sanity": "^3.0.1",
     "eslint-plugin-import": "^2.11.0",
     "jest": "^23.2.0",
-    "prettier": "^1.12.1",
+    "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
     "uglify-js": "^3.3.25",
     "uglifyify": "^5.0.0"
