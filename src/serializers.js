@@ -90,6 +90,10 @@ module.exports = (h, serializerOpts) => {
   }
 
   function ImageSerializer(props) {
+    if (!props.node.asset) {
+      return null
+    }
+
     const img = h('img', {src: getImageUrl(props)})
     return props.isInline ? img : h('figure', null, img)
   }
