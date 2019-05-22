@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## 3.0.0 - 2010-05-22
+
+Renamed to `hyperscript-portabletext`.
+
+Unknown block types now throws a console warning in stead of an error.
+
 ## 2.0.0 - 2018-07-04
 
 ### BREAKING
