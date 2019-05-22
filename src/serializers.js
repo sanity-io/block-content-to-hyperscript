@@ -10,8 +10,9 @@ module.exports = (h, serializerOpts) => {
     const blockType = node._type
     const serializer = serializers.types[blockType]
     if (!serializer) {
-      throw new Error(
-        `Unknown block type "${blockType}", please specify a serializer for it in the \`serializers.types\` prop`
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Unknown block type "${blockType}", please specify a serializer for it in the \`serializers.types\` prop.`
       )
     }
 

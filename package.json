@@ -1,7 +1,7 @@
 {
-  "name": "@sanity/block-content-to-hyperscript",
-  "description": "Function for transforming Sanity block content to HyperScript",
-  "version": "2.0.7",
+  "name": "@sanity/hyperscript-portabletext",
+  "description": "Function for transforming Portable Text to HyperScript",
+  "version": "3.0.0",
   "main": "lib/index.js",
   "umd": "umd/blocksToHyperScript.min.js",
   "unpkg": "umd/blocksToHyperScript.min.js",
@@ -46,12 +46,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sanity-io/block-content-to-hyperscript.git"
+    "url": "git+https://github.com/sanity-io/hyperscript-portabletext.git"
   },
   "bugs": {
-    "url": "https://github.com/sanity-io/block-content-to-hyperscript/issues"
+    "url": "https://github.com/sanity-io/hyperscript-portabletext/issues"
   },
-  "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
+  "homepage": "https://github.com/sanity-io/hyperscript-portabletext#readme",
   "jest": {
     "testURL": "http://localhost/",
     "collectCoverageFrom": [
