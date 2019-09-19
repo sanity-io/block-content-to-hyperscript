@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@sanity/generate-help-url": "^0.140.0",
-    "@sanity/image-url": "^0.140.14",
+    "@sanity/image-url": "^0.140.15",
     "hyperscript": "^2.0.2",
     "object-assign": "^4.1.1"
   },
