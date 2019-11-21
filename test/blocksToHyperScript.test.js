@@ -109,4 +109,53 @@ describe('internals', () => {
       })
     ).toEqual('<p>Rush</p>')
   })
+
+  test('should error on unknown types if ignoreUnknownTypes is not set', () => {
+    expect(() =>
+      render({
+        blocks: [
+          {
+            _type: 'someUnknownType',
+            someProp: true
+          }
+        ]
+      })
+    ).toThrow(
+      new Error(
+        'Unknown block type "someUnknownType", please specify a serializer for it in the `serializers.types` prop'
+      )
+    )
+  })
+
+  test('should not error on unknown types if ignoreUnknownTypes is set', () => {
+    const fn = () =>
+      render({
+        ignoreUnknownTypes: true,
+        blocks: [
+          {
+            _type: 'someUnknownType',
+            someProp: true
+          }
+        ]
+      })
+    expect(fn()).toEqual("<div style=\"display: none;\">Unknown block type \"someUnknownType\", please specify a serializer for it in the `serializers.types` prop</div>")
+  })
+
+  test('should output a custom rendering for unknown types if unknownType serializer given, and ignoreUnknownTypes is set', () => {
+    const fn = () =>
+      render({
+        ignoreUnknownTypes: true,
+        serializers: {
+          unknownType: props => h('div', {style: {color: 'red'}}, `Don't know what to do with '${props.node._type}'`)
+        },
+        blocks: [
+          {
+            _type: 'someUnknownType',
+            someProp: true
+          }
+        ]
+      })
+    expect(fn()).toEqual("<div style=\"color: red;\">Don't know what to do with 'someUnknownType'</div>")
+  })
+
 })

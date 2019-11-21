@@ -46,7 +46,9 @@ client.fetch('*[_type == "article"][0]').then(article => {
 * `serializers.listItem` - Function to use when rendering a list item node
 * `serializers.hardBreak` - Function to use when transforming newline characters to a hard break (default: `<br/>`, pass `false` to render newline character)
 * `serializers.container` - Serializer for the container wrapping the blocks
+* `serializers.unknownType` - Override the default serializer for for blocks of unknown type, if `ignoreUnknownTypes` is set to `true`.
 * `imageOptions` - When encountering image blocks, this defines which query parameters to apply in order to control size/crop mode etc.
+* `ignoreUnknownTypes` - If set to true, don't error on unkown block types, but output an hidden div instead with a warning. The default output can be overridden with `serializers.unknownType`
 
 In addition, in order to render images without materializing the asset documents, you should also specify:
 
