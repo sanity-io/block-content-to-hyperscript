@@ -1,1 +1,1 @@
-export * from "src/internals"
+export * from './src/internals'
