@@ -12,10 +12,5 @@ export function blocksToNodes(renderNode, props, defaultSerializers, serializeSp
 
   // Backwards-compatibility
   const serializers = getSerializers(renderNode)
-  return blocksToNodes(
-    renderNode,
-    props,
-    serializers.defaultSerializers,
-    serializers.serializeSpan
-  )
+  return blocksToNodes(renderNode, props, serializers.defaultSerializers, serializers.serializeSpan)
 }

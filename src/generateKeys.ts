@@ -1,5 +1,5 @@
 export default function generateKeys(blocks) {
-  return blocks.map(block => {
+  return blocks.map((block) => {
     if (block._key) {
       return block
     }

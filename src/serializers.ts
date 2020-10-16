@@ -112,7 +112,7 @@ export default function serializers(h, serializerOpts?: any) {
       children = {
         children: span.children.map((child, i) =>
           options.serializeNode(child, i, span.children, true)
-        )
+        ),
       }
     }
 
@@ -121,7 +121,7 @@ export default function serializers(h, serializerOpts?: any) {
     return h(_serializers.span, {
       key: span._key || `span-${index}`,
       node: serializedNode,
-      serializers: _serializers
+      serializers: _serializers,
     })
   }
 
@@ -132,14 +132,14 @@ export default function serializers(h, serializerOpts?: any) {
     code: RawMarkSerializer.bind(null, 'code'),
     underline: UnderlineSerializer,
     'strike-through': StrikeThroughSerializer,
-    link: LinkSerializer
+    link: LinkSerializer,
   }
 
   const defaultSerializers = {
     // Common overrides
     types: {
       block: BlockTypeSerializer,
-      image: ImageSerializer
+      image: ImageSerializer,
     },
     marks: defaultMarkSerializers,
 
@@ -161,11 +161,11 @@ export default function serializers(h, serializerOpts?: any) {
     text: undefined,
 
     // Empty nodes (React uses null, hyperscript with empty strings)
-    empty: ''
+    empty: '',
   }
 
   return {
     defaultSerializers,
-    serializeSpan
+    serializeSpan,
   }
 }

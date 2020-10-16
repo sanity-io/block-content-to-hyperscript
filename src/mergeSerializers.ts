@@ -1,4 +1,6 @@
-const isDefined = val => typeof val !== 'undefined'
+function isDefined(val) {
+  return typeof val !== 'undefined'
+}
 
 // Recursively merge/replace default serializers with user-specified serializers
 export default function mergeSerializers(defaultSerializers, userSerializers) {

@@ -5,7 +5,7 @@ import mergeSerializers from './mergeSerializers'
 
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions']
-const isDefined = val => typeof val !== 'undefined'
+const isDefined = (val) => typeof val !== 'undefined'
 const defaults = {imageOptions: {}}
 
 export default function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
@@ -64,7 +64,7 @@ export default function blocksToNodes(h, properties, defaultSerializers, seriali
       node: block,
       isInline,
       serializers,
-      options
+      options,
     }
 
     return h(serializers.block, blockProps, children)

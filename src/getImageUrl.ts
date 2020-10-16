@@ -8,14 +8,14 @@ const materializeError = `You must either:
 
 For more information, see ${generateHelpUrl('block-content-image-materializing')}`
 
-const getQueryString = options => {
+function getQueryString(options) {
   const query = options.imageOptions
   const keys = Object.keys(query)
   if (!keys.length) {
     return ''
   }
 
-  const params = keys.map(key => `${enc(key)}=${enc(query[key])}`)
+  const params = keys.map((key) => `${enc(key)}=${enc(query[key])}`)
   return `?${params.join('&')}`
 }
 
