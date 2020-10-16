@@ -2,13 +2,21 @@ import buildMarksTree from 'buildMarksTree'
 import nestLists from 'nestLists'
 import generateKeys from 'generateKeys'
 import mergeSerializers from 'mergeSerializers'
+import {Serializers} from 'serializers'
 
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions']
 const isDefined = (val) => typeof val !== 'undefined'
 const defaults = {imageOptions: {}}
 
-export default function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
+export type BlocksToNodesFn = (
+  renderNode: any,
+  props: any,
+  defaultSerializers?: Serializers,
+  serializeSpan?: any
+) => any
+
+const blocksToNodes: BlocksToNodesFn = (h, properties, defaultSerializers, serializeSpan) => {
   const props = {...defaults, ...properties}
   const rawBlocks = Array.isArray(props.blocks) ? props.blocks : [props.blocks]
   const keyedBlocks = generateKeys(rawBlocks)
@@ -100,6 +108,8 @@ export default function blocksToNodes(h, properties, defaultSerializers, seriali
 
   return typeof serializers.empty === 'function' ? h(serializers.empty) : serializers.empty
 }
+
+export default blocksToNodes
 
 function isList(block) {
   return block._type === 'list' && block.listItem

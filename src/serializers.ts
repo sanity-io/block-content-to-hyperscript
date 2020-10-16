@@ -26,7 +26,7 @@ export interface Serializers {
   text?: any
 
   // Empty nodes (React uses null, hyperscript with empty strings)
-  empty: ''
+  empty: string
 }
 
 export default function serializers(h, serializerOpts?: any) {
@@ -127,7 +127,7 @@ export default function serializers(h, serializerOpts?: any) {
   }
 
   // Serializer that recursively calls itself, producing a hyperscript tree of spans
-  function serializeSpan(span, _serializers, index, options) {
+  function serializeSpan(span, _serializers, index, options?: any) {
     if (span === '\n' && _serializers.hardBreak) {
       return h(_serializers.hardBreak, {key: `hb-${index}`})
     }

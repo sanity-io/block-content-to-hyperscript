@@ -1,11 +1,16 @@
 import getSerializers from 'serializers'
-import _blocksToNodes from 'blocksToNodes'
+import _blocksToNodes, {BlocksToNodesFn} from 'blocksToNodes'
 
 export {default as getImageUrl} from 'getImageUrl'
 export {default as mergeSerializers} from 'mergeSerializers'
 export {getSerializers}
 
-export function blocksToNodes(renderNode, props, defaultSerializers, serializeSpan) {
+export const blocksToNodes: BlocksToNodesFn = (
+  renderNode,
+  props,
+  defaultSerializers,
+  serializeSpan
+) => {
   if (defaultSerializers) {
     return _blocksToNodes(renderNode, props, defaultSerializers, serializeSpan)
   }

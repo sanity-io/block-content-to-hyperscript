@@ -1,4 +1,4 @@
-import type {Serializers} from 'serializers'
+import {Serializers} from 'serializers'
 
 function isDefined(val) {
   return typeof val !== 'undefined'
@@ -6,7 +6,7 @@ function isDefined(val) {
 
 export type MergeSerializersFn = (
   defaultSerializers: Serializers,
-  userSerializers: Serializers
+  userSerializers: Partial<Serializers>
 ) => Serializers
 
 // Recursively merge/replace default serializers with user-specified serializers
