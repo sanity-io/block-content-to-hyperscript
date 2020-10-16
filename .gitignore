@@ -3,6 +3,7 @@
 
 # Compiled files
 lib
+dist
 
 # Coverage directories used by tools like istanbul
 coverage
