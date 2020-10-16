@@ -4,6 +4,13 @@ import * as internals from '../src/internals'
 import blocksToHyperScript, {renderNode as h, getImageUrl} from '../src/index'
 import getSerializers from '../src/serializers'
 
+// eslint-disable-next-line no-console
+console.warn = jest.fn() // silences the console.watn calls when running tests
+// REVIEW: could we somehow test when console.warn have been called?
+// it('console.warn have been called', () => {
+//   expect(console.warn).toBeCalledWith(/** */)
+// })
+
 const {defaultSerializers, serializeSpan} = getSerializers(h)
 const normalize = (html) =>
   html
