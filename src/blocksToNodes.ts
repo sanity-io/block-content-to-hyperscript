@@ -1,7 +1,7 @@
-import buildMarksTree from './buildMarksTree'
-import nestLists from './nestLists'
-import generateKeys from './generateKeys'
-import mergeSerializers from './mergeSerializers'
+import buildMarksTree from 'buildMarksTree'
+import nestLists from 'nestLists'
+import generateKeys from 'generateKeys'
+import mergeSerializers from 'mergeSerializers'
 
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions']

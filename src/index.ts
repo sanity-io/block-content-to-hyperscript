@@ -1,8 +1,8 @@
 import hyperscript from 'hyperscript'
 // Expose logic for building image URLs from an image reference/node
-export {default as getImageUrl} from './getImageUrl'
-import blocksToNodes from './blocksToNodes'
-import getSerializers from './serializers'
+export {default as getImageUrl} from 'getImageUrl'
+import blocksToNodes from 'blocksToNodes'
+import getSerializers from 'serializers'
 
 type RenderNodeFunction = (serializers: any, props: any, children: any) => any
 

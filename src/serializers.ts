@@ -1,4 +1,4 @@
-import getImageUrl from './getImageUrl'
+import getImageUrl from 'getImageUrl'
 
 export default function serializers(h, serializerOpts?: any) {
   const serializeOptions = serializerOpts || {useDashedStyles: false}

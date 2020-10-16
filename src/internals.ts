@@ -1,8 +1,8 @@
-import getSerializers from './serializers'
-import _blocksToNodes from './blocksToNodes'
+import getSerializers from 'serializers'
+import _blocksToNodes from 'blocksToNodes'
 
-export {default as getImageUrl} from './getImageUrl'
-export {default as mergeSerializers} from './mergeSerializers'
+export {default as getImageUrl} from 'getImageUrl'
+export {default as mergeSerializers} from 'mergeSerializers'
 export {getSerializers}
 
 export function blocksToNodes(renderNode, props, defaultSerializers, serializeSpan) {
