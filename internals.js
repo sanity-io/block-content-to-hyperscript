@@ -1,1 +1,1 @@
-module.exports = require('./lib/internals')
+module.exports = require('./dist/internals')
