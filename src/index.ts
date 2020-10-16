@@ -7,12 +7,16 @@ import getSerializers from 'serializers'
 export type RenderNodeFn = (serializers: any, props: any, children: any) => any
 
 // Expose node renderer
-export const renderNode: RenderNodeFn = (serializer, props = {}, children) => {
+
+export const renderNode: RenderNodeFn = (serializer, properties, children) => {
+  const props = properties || {}
   if (typeof serializer === 'function') {
     return serializer({...props, children})
   }
 
-  return hyperscript(serializer, props, props.children ?? children)
+  const tag = serializer
+  const childNodes = props.children || children
+  return hyperscript(tag, props, childNodes)
 }
 
 const {defaultSerializers, serializeSpan} = getSerializers(renderNode, {useDashedStyles: true})
