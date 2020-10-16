@@ -1,9 +1,16 @@
+import type {Serializers} from 'serializers'
+
 function isDefined(val) {
   return typeof val !== 'undefined'
 }
 
+export type MergeSerializersFn = (
+  defaultSerializers: Serializers,
+  userSerializers: Serializers
+) => Serializers
+
 // Recursively merge/replace default serializers with user-specified serializers
-export default function mergeSerializers(defaultSerializers, userSerializers) {
+const mergeSerializers: MergeSerializersFn = (defaultSerializers, userSerializers) => {
   return Object.keys(defaultSerializers).reduce((acc, key) => {
     const type = typeof defaultSerializers[key]
     if (type === 'function') {
@@ -15,5 +22,7 @@ export default function mergeSerializers(defaultSerializers, userSerializers) {
         typeof userSerializers[key] === 'undefined' ? defaultSerializers[key] : userSerializers[key]
     }
     return acc
-  }, {})
+  }, defaultSerializers)
 }
+
+export default mergeSerializers

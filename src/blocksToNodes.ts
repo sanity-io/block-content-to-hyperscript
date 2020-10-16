@@ -73,7 +73,7 @@ export default function blocksToNodes(h, properties, defaultSerializers, seriali
   function serializeListItem(block, index) {
     const key = block._key
     const tree = buildMarksTree(block)
-    const children = tree.map(serializeNode)
+    const children = tree.map((node, i, siblings) => serializeNode(node, i, siblings, true))
     return h(serializers.listItem, {node: block, serializers, index, key, options}, children)
   }
 
@@ -88,7 +88,7 @@ export default function blocksToNodes(h, properties, defaultSerializers, seriali
   // Default to false, so `undefined` will evaluate to the default here
   const renderContainerOnSingleChild = Boolean(props.renderContainerOnSingleChild)
 
-  const nodes = blocks.map(serializeNode)
+  const nodes = blocks.map((node, i, siblings) => serializeNode(node, i, siblings, true))
   if (renderContainerOnSingleChild || nodes.length > 1) {
     const containerProps = props.className ? {className: props.className} : {}
     return h(serializers.container, containerProps, nodes)

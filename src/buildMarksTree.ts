@@ -1,5 +1,11 @@
 const defaultMarks = ['strong', 'em', 'code', 'underline', 'strike-through']
 
+interface MarkNode {
+  _type: string // REVIEW: Can we add stricter typing here?
+  children: any[]
+  markKey?: string
+}
+
 export default function buildMarksTree(block) {
   const {children, markDefs} = block
   if (!children || !children.length) {
@@ -7,7 +13,7 @@ export default function buildMarksTree(block) {
   }
 
   const sortedMarks = children.map(sortMarksByOccurences)
-  const rootNode = {_type: 'span', children: []}
+  const rootNode: MarkNode = {_type: 'span', children: []}
   let nodeStack = [rootNode]
 
   children.forEach((span, i) => {

@@ -4,10 +4,10 @@ export {default as getImageUrl} from 'getImageUrl'
 import blocksToNodes from 'blocksToNodes'
 import getSerializers from 'serializers'
 
-type RenderNodeFunction = (serializers: any, props: any, children: any) => any
+export type RenderNodeFn = (serializers: any, props: any, children: any) => any
 
 // Expose node renderer
-export const renderNode: RenderNodeFunction = (serializer, props = {}, children) => {
+export const renderNode: RenderNodeFn = (serializer, props = {}, children) => {
   if (typeof serializer === 'function') {
     return serializer({...props, children})
   }
