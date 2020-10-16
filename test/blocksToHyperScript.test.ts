@@ -1,21 +1,19 @@
 /* eslint-disable id-length, max-len */
-const runTests = require('@sanity/block-content-tests')
-const internals = require('../src/internals')
-const blocksToHyperScript = require('../src')
-const getSerializers = require('../src/serializers')
+import runTests from '@sanity/block-content-tests'
+import * as internals from '../src/internals'
+import blocksToHyperScript, {renderNode as h, getImageUrl} from '../src/index'
+import getSerializers from '../src/serializers'
 
-const h = blocksToHyperScript.renderNode
-const getImageUrl = blocksToHyperScript.getImageUrl
 const {defaultSerializers, serializeSpan} = getSerializers(h)
-const normalize = html =>
+const normalize = (html) =>
   html
     .replace(/<br(.*?)\/>/g, '<br$1>')
     .replace(/<img(.*?)\/>/g, '<img$1>')
     .replace(/&quot;/g, '"')
-    .replace(/&#x(\d+);/g, (match, code) => {
+    .replace(/&#x(\d+);/g, (_, code) => {
       return String.fromCharCode(parseInt(code, 16))
     })
-    .replace(/ style="(.*?)"/g, (match, styleProps) => {
+    .replace(/ style="(.*?)"/g, (_, styleProps) => {
       const style = styleProps.replace(/:(\S)/g, ': $1')
       return ` style="${style}"`
     })
@@ -31,13 +29,13 @@ const fixture = [
         marks: [],
         text: 'Test',
         markDefs: [],
-        style: 'normal'
-      }
-    ]
-  }
+        style: 'normal',
+      },
+    ],
+  },
 ]
 
-const render = options => {
+const render = (options) => {
   const rootNode = blocksToHyperScript(options)
   return rootNode.outerHTML || rootNode
 }
@@ -64,7 +62,7 @@ describe('internals', () => {
     const options = {imageOptions: {w: 320, h: 240}}
     const url = internals.getImageUrl({
       node: {asset: {url: 'https://foo.bar.baz/img.png'}},
-      options
+      options,
     })
 
     expect(url).toEqual('https://foo.bar.baz/img.png?w=320&h=240')
@@ -84,10 +82,10 @@ describe('internals', () => {
             _key: 'd234a4fa317a',
             asset: {
               _type: 'reference',
-              _ref: 'image-YiOKD0O6AdjKPaK24WtbOEv0-3456x2304-jpg'
-            }
-          }
-        ]
+              _ref: 'image-YiOKD0O6AdjKPaK24WtbOEv0-3456x2304-jpg',
+            },
+          },
+        ],
       })
     }).toThrow(/block-content-image-materializing/)
   })
@@ -101,11 +99,11 @@ describe('internals', () => {
             children: [
               {
                 _type: 'span',
-                text: 'Rush'
-              }
-            ]
-          }
-        ]
+                text: 'Rush',
+              },
+            ],
+          },
+        ],
       })
     ).toEqual('<p>Rush</p>')
   })
