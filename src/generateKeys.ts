@@ -1,12 +1,10 @@
-const objectAssign = require('object-assign')
-
-module.exports = blocks => {
+export default function generateKeys(blocks) {
   return blocks.map(block => {
     if (block._key) {
       return block
     }
 
-    return objectAssign({_key: getStaticKey(block)}, block)
+    return {_key: getStaticKey(block), ...block}
   })
 }
 

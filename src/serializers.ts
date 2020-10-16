@@ -1,14 +1,13 @@
-const objectAssign = require('object-assign')
-const getImageUrl = require('./getImageUrl')
+import getImageUrl from './getImageUrl'
 
-module.exports = (h, serializerOpts) => {
+export default function serializers(h, serializerOpts?: any) {
   const serializeOptions = serializerOpts || {useDashedStyles: false}
 
   // Low-level block serializer
   function BlockSerializer(props) {
-    const {node, serializers, options, isInline, children} = props
+    const {node, serializers: _serializers, options, isInline, children} = props
     const blockType = node._type
-    const serializer = serializers.types[blockType]
+    const serializer = _serializers.types[blockType]
     if (!serializer) {
       throw new Error(
         `Unknown block type "${blockType}", please specify a serializer for it in the \`serializers.types\` prop`
@@ -99,13 +98,13 @@ module.exports = (h, serializerOpts) => {
   }
 
   // Serializer that recursively calls itself, producing a hyperscript tree of spans
-  function serializeSpan(span, serializers, index, options) {
-    if (span === '\n' && serializers.hardBreak) {
-      return h(serializers.hardBreak, {key: `hb-${index}`})
+  function serializeSpan(span, _serializers, index, options) {
+    if (span === '\n' && _serializers.hardBreak) {
+      return h(_serializers.hardBreak, {key: `hb-${index}`})
     }
 
     if (typeof span === 'string') {
-      return serializers.text ? h(serializers.text, {key: `text-${index}`}, span) : span
+      return _serializers.text ? h(_serializers.text, {key: `text-${index}`}, span) : span
     }
 
     let children
@@ -117,12 +116,12 @@ module.exports = (h, serializerOpts) => {
       }
     }
 
-    const serializedNode = objectAssign({}, span, children)
+    const serializedNode = {...span, ...children}
 
-    return h(serializers.span, {
+    return h(_serializers.span, {
       key: span._key || `span-${index}`,
       node: serializedNode,
-      serializers
+      serializers: _serializers
     })
   }
 

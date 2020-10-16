@@ -1,16 +1,15 @@
-const objectAssign = require('object-assign')
-const buildMarksTree = require('./buildMarksTree')
-const nestLists = require('./nestLists')
-const generateKeys = require('./generateKeys')
-const mergeSerializers = require('./mergeSerializers')
+import buildMarksTree from './buildMarksTree'
+import nestLists from './nestLists'
+import generateKeys from './generateKeys'
+import mergeSerializers from './mergeSerializers'
 
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions']
 const isDefined = val => typeof val !== 'undefined'
 const defaults = {imageOptions: {}}
 
-function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
-  const props = objectAssign({}, defaults, properties)
+export default function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
+  const props = {...defaults, ...properties}
   const rawBlocks = Array.isArray(props.blocks) ? props.blocks : [props.blocks]
   const keyedBlocks = generateKeys(rawBlocks)
   const blocks = nestLists(keyedBlocks, props.listNestMode)
@@ -113,5 +112,3 @@ function isListItem(block) {
 function isSpan(block) {
   return typeof block === 'string' || block.marks || block._type === 'span'
 }
-
-module.exports = blocksToNodes
