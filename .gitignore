@@ -14,9 +14,5 @@ node_modules
 # Other snargh
 .DS_Store
 
-# UMD bundle
-umd/*
-!umd/.gitkeep
-
 # Yarn
 yarn.lock
