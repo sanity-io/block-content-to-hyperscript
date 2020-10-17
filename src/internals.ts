@@ -1,9 +1,6 @@
 import getSerializers from 'serializers'
-import _blocksToNodes, {BlocksToNodesFn} from 'blocksToNodes'
-
-export {default as getImageUrl} from 'getImageUrl'
-export {default as mergeSerializers} from 'mergeSerializers'
-export {getSerializers}
+import _blocksToNodes from 'blocksToNodes'
+import {BlocksToNodesFn} from './types'
 
 export const blocksToNodes: BlocksToNodesFn = (
   renderNode,

@@ -1,14 +1,9 @@
-import {defaultSerializers as _defaultSerializers} from 'index'
-import {Serializers} from 'serializers'
+import {defaultSerializers as _defaultSerializers} from 'blockContentToHyperscript'
+import {MergeSerializersFn} from './types'
 
 function isDefined(val) {
   return typeof val !== 'undefined'
 }
-
-export type MergeSerializersFn = (
-  defaultSerializers?: Partial<Serializers>,
-  userSerializers?: Partial<Serializers>
-) => Serializers
 
 // Recursively merge/replace default serializers with user-specified serializers
 const mergeSerializers: MergeSerializersFn = (defaultSerializers = {}, userSerializers = {}) => {

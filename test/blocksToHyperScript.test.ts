@@ -1,8 +1,12 @@
 /* eslint-disable id-length, max-len */
 import runTests from '@sanity/block-content-tests'
-import * as internals from '../src/internals'
-import blocksToHyperScript, {renderNode as h, getImageUrl} from '../src/index'
-import getSerializers from '../src/serializers'
+import blocksToHyperScript, {
+  renderNode as h,
+  getImageUrl,
+  getSerializers,
+  blocksToNodes,
+  mergeSerializers,
+} from 'index'
 
 // eslint-disable-next-line no-console
 console.warn = jest.fn() // silences the console.watn calls when running tests
@@ -51,23 +55,23 @@ runTests({render, h, normalize, getImageUrl})
 
 describe('internals', () => {
   test('exposes blocksToNodes() on internals', () => {
-    const node = internals.blocksToNodes(h, {blocks: fixture}, defaultSerializers, serializeSpan)
+    const node = blocksToNodes(h, {blocks: fixture}, defaultSerializers, serializeSpan)
     expect(node.outerHTML).toEqual('<p>Test</p>')
   })
 
   test('exposes blocksToNodes() in legacy mode on internals', () => {
-    const node = internals.blocksToNodes(h, {blocks: fixture})
+    const node = blocksToNodes(h, {blocks: fixture})
     expect(node.outerHTML).toEqual('<p>Test</p>')
   })
 
   test('exposes getSerializers() on internals', () => {
-    const serializers = internals.getSerializers(h)
+    const serializers = getSerializers(h)
     expect(serializers.serializeSpan('hei', serializers.defaultSerializers, 0)).toEqual('hei')
   })
 
   test('exposes getImageUrl() on internals', () => {
     const options = {imageOptions: {w: 320, h: 240}}
-    const url = internals.getImageUrl({
+    const url = getImageUrl({
       node: {asset: {url: 'https://foo.bar.baz/img.png'}},
       options,
     })
@@ -76,7 +80,7 @@ describe('internals', () => {
   })
 
   test('exposes mergeSerializers() on internals', () => {
-    const serializers = internals.mergeSerializers(defaultSerializers, {})
+    const serializers = mergeSerializers(defaultSerializers, {})
     expect(Object.keys(serializers)).toEqual(Object.keys(defaultSerializers))
   })
 

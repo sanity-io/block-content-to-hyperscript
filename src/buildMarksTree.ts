@@ -1,10 +1,6 @@
-const defaultMarks = ['strong', 'em', 'code', 'underline', 'strike-through']
+import {MarkNode} from './types'
 
-interface MarkNode {
-  _type: string // REVIEW: Can we add stricter typing here?
-  children: any[]
-  markKey?: string
-}
+const defaultMarks = ['strong', 'em', 'code', 'underline', 'strike-through']
 
 export default function buildMarksTree(block) {
   const {children, markDefs} = block
