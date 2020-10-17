@@ -21,7 +21,7 @@ const normalize = (html) =>
       return String.fromCharCode(parseInt(code, 16))
     })
     .replace(/ style="(.*?)"/g, (_, styleProps) => {
-      const style = styleProps.replace(/:(\S)/g, ': $1')
+      const style = styleProps.replace(/:(\S)/g, ':$1')
       return ` style="${style}"`
     })
 
