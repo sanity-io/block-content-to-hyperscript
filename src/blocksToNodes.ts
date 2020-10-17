@@ -31,7 +31,7 @@ const blocksToNodes: BlocksToNodesFn = (h, properties, defaultSerializers, seria
     return opts
   }, {})
 
-  function serializeNode(node, index, siblings, isInline) {
+  function serializeNode(node, index, siblings, isInline?: boolean) {
     if (isList(node)) {
       return serializeList(node)
     }
@@ -81,7 +81,7 @@ const blocksToNodes: BlocksToNodesFn = (h, properties, defaultSerializers, seria
   function serializeListItem(block, index) {
     const key = block._key
     const tree = buildMarksTree(block)
-    const children = tree.map((node, i, siblings) => serializeNode(node, i, siblings, true))
+    const children = tree.map(serializeNode)
     return h(serializers.listItem, {node: block, serializers, index, key, options}, children)
   }
 
@@ -96,7 +96,7 @@ const blocksToNodes: BlocksToNodesFn = (h, properties, defaultSerializers, seria
   // Default to false, so `undefined` will evaluate to the default here
   const renderContainerOnSingleChild = Boolean(props.renderContainerOnSingleChild)
 
-  const nodes = blocks.map((node, i, siblings) => serializeNode(node, i, siblings, true))
+  const nodes = blocks.map(serializeNode)
   if (renderContainerOnSingleChild || nodes.length > 1) {
     const containerProps = props.className ? {className: props.className} : {}
     return h(serializers.container, containerProps, nodes)
