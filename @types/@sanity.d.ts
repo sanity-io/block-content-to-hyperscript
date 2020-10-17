@@ -7,6 +7,7 @@ declare module '@sanity/image-url' {
   declare function urlBuilder(urlBuilderParams: {
     projectId: string
     dataset: any
+    options?: any
   }): {
     image(node: any): any
   }
