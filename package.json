@@ -56,5 +56,8 @@
   "bugs": {
     "url": "https://github.com/sanity-io/block-content-to-hyperscript/issues"
   },
-  "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme"
+  "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
+  "jest": {
+    "moduleDirectories": ["node_modules", "src"]
+  }
 }
