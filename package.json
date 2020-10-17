@@ -39,7 +39,6 @@
     "eslint-config-sanity": "^1.150.8",
     "husky": "^4.3.0",
     "prettier": "^2.1.2",
-    "size-limit": "^4.6.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"
