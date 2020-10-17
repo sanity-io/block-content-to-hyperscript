@@ -1,6 +1,6 @@
 /* eslint-disable max-depth, complexity */
 export default function nestLists(blocks, mode = 'html') {
-  const tree = []
+  const tree: any[] = []
   let currentList
 
   for (let i = 0; i < blocks.length; i++) {

@@ -1,3 +1,4 @@
+import {defaultSerializers as _defaultSerializers} from 'index'
 import {Serializers} from 'serializers'
 
 function isDefined(val) {
@@ -5,12 +6,12 @@ function isDefined(val) {
 }
 
 export type MergeSerializersFn = (
-  defaultSerializers: Serializers,
-  userSerializers: Partial<Serializers>
+  defaultSerializers?: Partial<Serializers>,
+  userSerializers?: Partial<Serializers>
 ) => Serializers
 
 // Recursively merge/replace default serializers with user-specified serializers
-const mergeSerializers: MergeSerializersFn = (defaultSerializers, userSerializers) => {
+const mergeSerializers: MergeSerializersFn = (defaultSerializers = {}, userSerializers = {}) => {
   return Object.keys(defaultSerializers).reduce((acc, key) => {
     const type = typeof defaultSerializers[key]
     if (type === 'function') {
@@ -22,7 +23,7 @@ const mergeSerializers: MergeSerializersFn = (defaultSerializers, userSerializer
         typeof userSerializers[key] === 'undefined' ? defaultSerializers[key] : userSerializers[key]
     }
     return acc
-  }, defaultSerializers)
+  }, _defaultSerializers)
 }
 
 export default mergeSerializers
