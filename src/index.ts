@@ -23,7 +23,7 @@ const {defaultSerializers, serializeSpan} = getSerializers(renderNode, {useDashe
 // Expose default serializers to the user
 export {defaultSerializers}
 
-function blockContentToHyperscript(options) {
+function blockContentToHyperscript(options: any) {
   return blocksToNodes(renderNode, options, defaultSerializers, serializeSpan)
 }
 
