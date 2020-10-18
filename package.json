@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build --format cjs,umd,esm; mv dist lib",
+    "clean": "rimraf lib coverage .nyc_output umd/*.js",
+    "build": "npm run clean;tsdx build --format cjs,umd,esm;mv dist lib",
     "test": "tsdx test",
     "lint": "eslint",
     "prepare": "npm run build"
@@ -37,6 +38,7 @@
     "eslint-config-prettier": "^6.13.0",
     "eslint-config-sanity": "^1.150.8",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"
@@ -51,7 +53,10 @@
   },
   "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
   "jest": {
-    "moduleDirectories": ["node_modules", "src"],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "testURL": "http://localhost/",
     "collectCoverageFrom": [
       "src/**/*.js"
