@@ -1,8 +1,6 @@
-const objectAssign = require('object-assign')
-
 /* eslint-disable max-depth, complexity */
-function nestLists(blocks, mode = 'html') {
-  const tree = []
+export default function nestLists(blocks, mode = 'html') {
+  const tree: any[] = []
   let currentList
 
   for (let i = 0; i < blocks.length; i++) {
@@ -39,9 +37,12 @@ function nestLists(blocks, mode = 'html') {
 
         // Clone the last child while adding our new list as the last child of it
         const lastListItem = lastChild(currentList)
-        const newLastChild = objectAssign({}, lastListItem, {
-          children: lastListItem.children.concat(newList)
-        })
+        const newLastChild = {
+          ...lastListItem,
+          ...{
+            children: lastListItem.children.concat(newList)
+          }
+        }
 
         // Swap the last child
         currentList.children[currentList.children.length - 1] = newLastChild
@@ -131,5 +132,3 @@ function findListMatching(rootNode, matching) {
 
   return findListMatching(node, matching)
 }
-
-module.exports = nestLists

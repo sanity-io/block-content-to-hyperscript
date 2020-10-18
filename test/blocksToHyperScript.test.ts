@@ -1,21 +1,30 @@
 /* eslint-disable id-length, max-len */
-const runTests = require('@sanity/block-content-tests')
-const internals = require('../src/internals')
-const blocksToHyperScript = require('../src')
-const getSerializers = require('../src/serializers')
+import runTests from '@sanity/block-content-tests'
+import blocksToHyperScript, {
+  renderNode as h,
+  getImageUrl,
+  getSerializers,
+  blocksToNodes,
+  mergeSerializers,
+} from 'index'
 
-const h = blocksToHyperScript.renderNode
-const getImageUrl = blocksToHyperScript.getImageUrl
+// eslint-disable-next-line no-console
+console.warn = jest.fn() // silences the console.watn calls when running tests
+// REVIEW: could we somehow test when console.warn have been called?
+// it('console.warn have been called', () => {
+//   expect(console.warn).toBeCalledWith(/** */)
+// })
+
 const {defaultSerializers, serializeSpan} = getSerializers(h)
 const normalize = html =>
   html
     .replace(/<br(.*?)\/>/g, '<br$1>')
     .replace(/<img(.*?)\/>/g, '<img$1>')
     .replace(/&quot;/g, '"')
-    .replace(/&#x(\d+);/g, (match, code) => {
+    .replace(/&#x(\d+);/g, (_, code) => {
       return String.fromCharCode(parseInt(code, 16))
     })
-    .replace(/ style="(.*?)"/g, (match, styleProps) => {
+    .replace(/ style="(.*?)"/g, (_, styleProps) => {
       const style = styleProps.replace(/:(\S)/g, ': $1')
       return ` style="${style}"`
     })
@@ -46,23 +55,23 @@ runTests({render, h, normalize, getImageUrl})
 
 describe('internals', () => {
   test('exposes blocksToNodes() on internals', () => {
-    const node = internals.blocksToNodes(h, {blocks: fixture}, defaultSerializers, serializeSpan)
+    const node = blocksToNodes(h, {blocks: fixture}, defaultSerializers, serializeSpan)
     expect(node.outerHTML).toEqual('<p>Test</p>')
   })
 
   test('exposes blocksToNodes() in legacy mode on internals', () => {
-    const node = internals.blocksToNodes(h, {blocks: fixture})
+    const node = blocksToNodes(h, {blocks: fixture})
     expect(node.outerHTML).toEqual('<p>Test</p>')
   })
 
   test('exposes getSerializers() on internals', () => {
-    const serializers = internals.getSerializers(h)
+    const serializers = getSerializers(h)
     expect(serializers.serializeSpan('hei', serializers.defaultSerializers, 0)).toEqual('hei')
   })
 
   test('exposes getImageUrl() on internals', () => {
     const options = {imageOptions: {w: 320, h: 240}}
-    const url = internals.getImageUrl({
+    const url = getImageUrl({
       node: {asset: {url: 'https://foo.bar.baz/img.png'}},
       options
     })
@@ -71,7 +80,7 @@ describe('internals', () => {
   })
 
   test('exposes mergeSerializers() on internals', () => {
-    const serializers = internals.mergeSerializers(defaultSerializers, {})
+    const serializers = mergeSerializers(defaultSerializers, {})
     expect(Object.keys(serializers)).toEqual(Object.keys(defaultSerializers))
   })
 

@@ -1,6 +1,5 @@
-const generateHelpUrl = require('@sanity/generate-help-url')
-const urlBuilder = require('@sanity/image-url')
-const objectAssign = require('object-assign')
+import generateHelpUrl from '@sanity/generate-help-url'
+import urlBuilder from '@sanity/image-url'
 
 const enc = encodeURIComponent
 const materializeError = `You must either:
@@ -16,11 +15,11 @@ const getQueryString = options => {
     return ''
   }
 
-  const params = keys.map(key => `${enc(key)}=${enc(query[key])}`)
+  const params = keys.map((key) => `${enc(key)}=${enc(query[key])}`)
   return `?${params.join('&')}`
 }
 
-const buildUrl = props => {
+export default function buildUrl(props) {
   const {node, options} = props
   const {projectId, dataset} = options
   const asset = node.asset
@@ -42,9 +41,7 @@ const buildUrl = props => {
     throw new Error('Invalid image reference in block, no `_ref` found on `asset`')
   }
 
-  return urlBuilder(objectAssign({projectId, dataset}, options.imageOptions || {}))
+  return urlBuilder({projectId, dataset, ...options.imageOptions})
     .image(node)
     .toString()
 }
-
-module.exports = buildUrl

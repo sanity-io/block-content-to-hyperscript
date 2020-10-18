@@ -1,13 +1,15 @@
+import {MarkNode} from './types'
+
 const defaultMarks = ['strong', 'em', 'code', 'underline', 'strike-through']
 
-const buildMarksTree = block => {
+export default function buildMarksTree(block) {
   const {children, markDefs} = block
   if (!children || !children.length) {
     return []
   }
 
   const sortedMarks = children.map(sortMarksByOccurences)
-  const rootNode = {_type: 'span', children: []}
+  const rootNode: MarkNode = {_type: 'span', children: []}
   let nodeStack = [rootNode]
 
   children.forEach((span, i) => {
@@ -146,5 +148,3 @@ function findLastParentNode(nodes) {
 
   return undefined
 }
-
-module.exports = buildMarksTree
