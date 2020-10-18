@@ -40,8 +40,8 @@ export default function nestLists(blocks, mode = 'html') {
         const newLastChild = {
           ...lastListItem,
           ...{
-            children: lastListItem.children.concat(newList),
-          },
+            children: lastListItem.children.concat(newList)
+          }
         }
 
         // Swap the last child
@@ -107,7 +107,7 @@ function listFromBlock(block) {
     _key: `${block._key}-parent`,
     level: block.level,
     listItem: block.listItem,
-    children: [block],
+    children: [block]
   }
 }
 
@@ -120,8 +120,7 @@ function findListMatching(rootNode, matching) {
   if (
     rootNode._type === 'list' &&
     rootNode.level === matching.level &&
-    filterOnType &&
-    rootNode.listItem === matching.listItem
+    (filterOnType && rootNode.listItem === matching.listItem)
   ) {
     return rootNode
   }

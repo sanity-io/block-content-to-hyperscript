@@ -2,10 +2,10 @@
   "name": "@sanity/block-content-to-hyperscript",
   "description": "Function for transforming Sanity block content to HyperScript",
   "version": "2.0.10",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "umd": "dist/block-content-to-hyperscript.umd.production.min",
-  "unpkg": "dist/block-content-to-hyperscript.umd.production.min",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "umd": "lib/block-content-to-hyperscript.umd.production.min",
+  "unpkg": "lib/block-content-to-hyperscript.umd.production.min",
   "engines": {
     "node": ">=10"
   },
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build --format cjs,umd,esm",
+    "build": "tsdx build --format cjs,umd,esm; mv dist lib",
     "test": "tsdx test",
     "lint": "eslint",
     "prepare": "npm run build"
@@ -31,13 +31,11 @@
   },
   "devDependencies": {
     "@sanity/block-content-tests": "^0.3.0",
-    "@size-limit/preset-small-lib": "^4.6.0",
     "@types/hyperscript": "0.0.4",
     "@typescript-eslint/parser": "^4.4.1",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.13.0",
     "eslint-config-sanity": "^1.150.8",
-    "husky": "^4.3.0",
     "prettier": "^2.1.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
@@ -47,17 +45,16 @@
     "type": "git",
     "url": "git+https://github.com/sanity-io/block-content-to-hyperscript.git"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
-  "module": "dist/block-content-to-hyperscript.esm.js",
+  "module": "lib/block-content-to-hyperscript.esm.js",
   "bugs": {
     "url": "https://github.com/sanity-io/block-content-to-hyperscript/issues"
   },
   "homepage": "https://github.com/sanity-io/block-content-to-hyperscript#readme",
   "jest": {
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleDirectories": ["node_modules", "src"],
+    "testURL": "http://localhost/",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }

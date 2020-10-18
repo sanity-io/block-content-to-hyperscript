@@ -41,13 +41,13 @@ export default function buildMarksTree(block) {
 
     // Add needed nodes
     let currentNode = findLastParentNode(nodeStack)
-    marksNeeded.forEach((mark) => {
+    marksNeeded.forEach(mark => {
       const node = {
         _type: 'span',
         _key: span._key,
         children: [],
-        mark: markDefs.find((def) => def._key === mark) || mark,
-        markKey: mark,
+        mark: markDefs.find(def => def._key === mark) || mark,
+        markKey: mark
       }
 
       currentNode.children.push(node)

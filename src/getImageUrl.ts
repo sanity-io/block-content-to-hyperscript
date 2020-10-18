@@ -8,7 +8,7 @@ const materializeError = `You must either:
 
 For more information, see ${generateHelpUrl('block-content-image-materializing')}`
 
-function getQueryString(options) {
+const getQueryString = options => {
   const query = options.imageOptions
   const keys = Object.keys(query)
   if (!keys.length) {

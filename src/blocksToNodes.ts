@@ -65,7 +65,7 @@ const blocksToNodes: BlocksToNodesFn = (h, properties, defaultSerializers, seria
       node: block,
       isInline,
       serializers,
-      options,
+      options
     }
 
     return h(serializers.block, blockProps, children)

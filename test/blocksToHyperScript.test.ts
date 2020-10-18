@@ -16,15 +16,15 @@ console.warn = jest.fn() // silences the console.watn calls when running tests
 // })
 
 const {defaultSerializers, serializeSpan} = getSerializers(h)
-const normalize = (html) =>
+const normalize = html =>
   html
     .replace(/<br(.*?)\/>/g, '<br$1>')
     .replace(/<img(.*?)\/>/g, '<img$1>')
     .replace(/&quot;/g, '"')
-    .replace(/&#x(\d+);/g, (_, code) => {
+    .replace(/&#x(\d+);/g, (match, code) => {
       return String.fromCharCode(parseInt(code, 16))
     })
-    .replace(/ style="(.*?)"/g, (_, styleProps) => {
+    .replace(/ style="(.*?)"/g, (match, styleProps) => {
       const style = styleProps.replace(/:(\S)/g, ': $1')
       return ` style="${style}"`
     })
@@ -40,13 +40,13 @@ const fixture = [
         marks: [],
         text: 'Test',
         markDefs: [],
-        style: 'normal',
-      },
-    ],
-  },
+        style: 'normal'
+      }
+    ]
+  }
 ]
 
-const render = (options) => {
+const render = options => {
   const rootNode = blocksToHyperScript(options)
   return rootNode.outerHTML || rootNode
 }
@@ -73,7 +73,7 @@ describe('internals', () => {
     const options = {imageOptions: {w: 320, h: 240}}
     const url = getImageUrl({
       node: {asset: {url: 'https://foo.bar.baz/img.png'}},
-      options,
+      options
     })
 
     expect(url).toEqual('https://foo.bar.baz/img.png?w=320&h=240')
@@ -93,10 +93,10 @@ describe('internals', () => {
             _key: 'd234a4fa317a',
             asset: {
               _type: 'reference',
-              _ref: 'image-YiOKD0O6AdjKPaK24WtbOEv0-3456x2304-jpg',
-            },
-          },
-        ],
+              _ref: 'image-YiOKD0O6AdjKPaK24WtbOEv0-3456x2304-jpg'
+            }
+          }
+        ]
       })
     }).toThrow(/block-content-image-materializing/)
   })
@@ -110,11 +110,11 @@ describe('internals', () => {
             children: [
               {
                 _type: 'span',
-                text: 'Rush',
-              },
-            ],
-          },
-        ],
+                text: 'Rush'
+              }
+            ]
+          }
+        ]
       })
     ).toEqual('<p>Rush</p>')
   })
