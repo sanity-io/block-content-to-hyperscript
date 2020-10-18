@@ -21,10 +21,10 @@ const normalize = html =>
     .replace(/<br(.*?)\/>/g, '<br$1>')
     .replace(/<img(.*?)\/>/g, '<img$1>')
     .replace(/&quot;/g, '"')
-    .replace(/&#x(\d+);/g, (match, code) => {
+    .replace(/&#x(\d+);/g, (_, code) => {
       return String.fromCharCode(parseInt(code, 16))
     })
-    .replace(/ style="(.*?)"/g, (match, styleProps) => {
+    .replace(/ style="(.*?)"/g, (_, styleProps) => {
       const style = styleProps.replace(/:(\S)/g, ': $1')
       return ` style="${style}"`
     })
