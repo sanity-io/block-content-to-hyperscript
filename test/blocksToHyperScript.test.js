@@ -110,9 +110,10 @@ describe('internals', () => {
     ).toEqual('<p>Rush</p>')
   })
 
-  test('should error on unknown types if ignoreUnknownTypes is not set', () => {
+  test('should error on unknown types if ignoreUnknownTypes is set to false', () => {
     expect(() =>
       render({
+        ignoreUnknownTypes: false,
         blocks: [
           {
             _type: 'someUnknownType',
@@ -127,7 +128,7 @@ describe('internals', () => {
     )
   })
 
-  test('should not error on unknown types if ignoreUnknownTypes is set', () => {
+  test('should not error on unknown types if ignoreUnknownTypes is set to true', () => {
     const fn = () =>
       render({
         ignoreUnknownTypes: true,
@@ -138,7 +139,24 @@ describe('internals', () => {
           }
         ]
       })
-    expect(fn()).toEqual("<div style=\"display: none;\">Unknown block type \"someUnknownType\", please specify a serializer for it in the `serializers.types` prop</div>")
+    expect(fn()).toEqual(
+      '<div style="display: none;">Unknown block type "someUnknownType", please specify a serializer for it in the `serializers.types` prop</div>'
+    )
+  })
+
+  test('should not error on unknown types if ignoreUnknownTypes is not explicity defined', () => {
+    const fn = () =>
+      render({
+        blocks: [
+          {
+            _type: 'someUnknownType',
+            someProp: true
+          }
+        ]
+      })
+    expect(fn()).toEqual(
+      '<div style="display: none;">Unknown block type "someUnknownType", please specify a serializer for it in the `serializers.types` prop</div>'
+    )
   })
 
   test('should output a custom rendering for unknown types if unknownType serializer given, and ignoreUnknownTypes is set', () => {
@@ -146,7 +164,8 @@ describe('internals', () => {
       render({
         ignoreUnknownTypes: true,
         serializers: {
-          unknownType: props => h('div', {style: {color: 'red'}}, `Don't know what to do with '${props.node._type}'`)
+          unknownType: props =>
+            h('div', {style: {color: 'red'}}, `Don't know what to do with '${props.node._type}'`)
         },
         blocks: [
           {
@@ -155,7 +174,8 @@ describe('internals', () => {
           }
         ]
       })
-    expect(fn()).toEqual("<div style=\"color: red;\">Don't know what to do with 'someUnknownType'</div>")
+    expect(fn()).toEqual(
+      "<div style=\"color: red;\">Don't know what to do with 'someUnknownType'</div>"
+    )
   })
-
 })

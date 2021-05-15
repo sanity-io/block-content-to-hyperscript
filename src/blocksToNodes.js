@@ -7,7 +7,7 @@ const mergeSerializers = require('./mergeSerializers')
 // Properties to extract from props and pass to serializers as options
 const optionProps = ['projectId', 'dataset', 'imageOptions', 'ignoreUnknownTypes']
 const isDefined = val => typeof val !== 'undefined'
-const defaults = {imageOptions: {}, ignoreUnknownTypes: false}
+const defaults = {imageOptions: {}, ignoreUnknownTypes: true}
 
 function blocksToNodes(h, properties, defaultSerializers, serializeSpan) {
   const props = objectAssign({}, defaults, properties)
