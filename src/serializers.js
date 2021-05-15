@@ -10,6 +10,13 @@ module.exports = (h, serializerOpts) => {
     const blockType = node._type
     const serializer = serializers.types[blockType]
     if (!serializer) {
+      if (options.ignoreUnknownTypes) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Unknown block type "${blockType}", please specify a serializer for it in the \`serializers.types\` prop`
+        )
+        return h(serializers.unknownType, {node, options, isInline}, children)
+      }
       throw new Error(
         `Unknown block type "${blockType}", please specify a serializer for it in the \`serializers.types\` prop`
       )
@@ -52,6 +59,17 @@ module.exports = (h, serializerOpts) => {
           h(props.serializers.types.block, props, props.children)
 
     return h('li', null, children)
+  }
+
+  // Unknown type default serializer
+  function DefaultUnknownTypeSerializer(props) {
+    return h(
+      'div',
+      {style: {display: 'none'}},
+      `Unknown block type "${
+        props.node._type
+      }", please specify a serializer for it in the \`serializers.types\` prop`
+    )
   }
 
   // Renderer of an actual block of type `block`. Confusing, we know.
@@ -151,6 +169,7 @@ module.exports = (h, serializerOpts) => {
     block: BlockSerializer,
     span: SpanSerializer,
     hardBreak: HardBreakSerializer,
+    unknownType: DefaultUnknownTypeSerializer,
 
     // Container element
     container: 'div',
