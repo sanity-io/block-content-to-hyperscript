@@ -32,12 +32,11 @@ module.exports = (h, serializerOpts) => {
     const markType = isPlain ? mark : mark._type
     const serializer = props.serializers.marks[markType]
     if (!serializer) {
-      // @todo Revert back to throwing errors?
       // eslint-disable-next-line no-console
       console.warn(
         `Unknown mark type "${markType}", please specify a serializer for it in the \`serializers.marks\` prop`
       )
-      return h(props.serializers.markFallback, null, children)
+      return h(props.serializers.unknownMark, null, children)
     }
 
     return h(serializer, props.node, children)
@@ -169,13 +168,12 @@ module.exports = (h, serializerOpts) => {
     block: BlockSerializer,
     span: SpanSerializer,
     hardBreak: HardBreakSerializer,
+
     unknownType: DefaultUnknownTypeSerializer,
+    unknownMark: 'span',
 
     // Container element
     container: 'div',
-
-    // When we can't resolve the mark properly, use this renderer as the container
-    markFallback: 'span',
 
     // Allow overriding text renderer, but leave undefined to just use plain strings by default
     text: undefined,
