@@ -145,6 +145,8 @@ module.exports = (h, serializerOpts) => {
 
   const HardBreakSerializer = () => h('br')
   const defaultMarkSerializers = {
+    sub: RawMarkSerializer.bind(null, 'sub'),
+    sup: RawMarkSerializer.bind(null, 'sup'),
     strong: RawMarkSerializer.bind(null, 'strong'),
     em: RawMarkSerializer.bind(null, 'em'),
     code: RawMarkSerializer.bind(null, 'code'),
