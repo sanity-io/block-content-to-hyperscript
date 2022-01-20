@@ -1,5 +1,5 @@
 import objectAssign from 'object-assign'
-const isDefined = (val: string) => typeof val !== 'undefined'
+const isDefined = val => typeof val !== 'undefined'
 
 // Recursively merge/replace default serializers with user-specified serializers
 export function mergeSerializers(defaultSerializers, userSerializers) {
