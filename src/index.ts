@@ -1,8 +1,8 @@
-const hyperscript = require('hyperscript')
-const objectAssign = require('object-assign')
-const getImageUrl = require('./getImageUrl')
-const blocksToNodes = require('./blocksToNodes')
-const getSerializers = require('./serializers')
+import hyperscript from 'hyperscript'
+import objectAssign from 'object-assign'
+import {getImageUrl} from './getImageUrl'
+import {blocksToNodes} from './blocksToNodes'
+import getSerializers from './serializers'
 
 const renderNode = (serializer, properties, children) => {
   const props = properties || {}
@@ -30,4 +30,4 @@ blockContentToHyperscript.getImageUrl = getImageUrl
 // Expose node renderer
 blockContentToHyperscript.renderNode = renderNode
 
-module.exports = blockContentToHyperscript
+export default blockContentToHyperscript

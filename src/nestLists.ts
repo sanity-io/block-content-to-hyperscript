@@ -1,7 +1,7 @@
-const objectAssign = require('object-assign')
+import objectAssign from 'object-assign'
 
 /* eslint-disable max-depth, complexity */
-function nestLists(blocks, mode = 'html') {
+export function nestLists(blocks, mode = 'html') {
   const tree = []
   let currentList
 
@@ -131,5 +131,3 @@ function findListMatching(rootNode, matching) {
 
   return findListMatching(node, matching)
 }
-
-module.exports = nestLists

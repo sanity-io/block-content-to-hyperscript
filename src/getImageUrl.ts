@@ -1,6 +1,6 @@
-const generateHelpUrl = require('@sanity/generate-help-url')
-const urlBuilder = require('@sanity/image-url')
-const objectAssign = require('object-assign')
+import generateHelpUrl from '@sanity/generate-help-url'
+import urlBuilder from '@sanity/image-url'
+import objectAssign from 'object-assign'
 
 const enc = encodeURIComponent
 const materializeError = `You must either:
@@ -20,7 +20,7 @@ const getQueryString = options => {
   return `?${params.join('&')}`
 }
 
-const buildUrl = props => {
+export const getImageUrl = props => {
   const {node, options} = props
   const {projectId, dataset} = options
   const asset = node.asset
@@ -46,5 +46,3 @@ const buildUrl = props => {
     .image(node)
     .toString()
 }
-
-module.exports = buildUrl

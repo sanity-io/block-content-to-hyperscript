@@ -1,8 +1,8 @@
-const objectAssign = require('object-assign')
+import objectAssign from 'object-assign'
 const isDefined = val => typeof val !== 'undefined'
 
 // Recursively merge/replace default serializers with user-specified serializers
-module.exports = function mergeSerializers(defaultSerializers, userSerializers) {
+export function mergeSerializers(defaultSerializers, userSerializers) {
   return Object.keys(defaultSerializers).reduce((acc, key) => {
     const type = typeof defaultSerializers[key]
     if (type === 'function') {
