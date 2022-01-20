@@ -10,13 +10,13 @@
     "build": "npm run clean && npm run compile && npm run browserify && npm run minify",
     "watch": "npm run compile -- --watch",
     "clean": "rimraf lib coverage .nyc_output umd/*.js",
-    "compile": "babel --source-maps --copy-files -d lib/ src/",
+    "compile": "babel --source-maps --extensions \".ts,.js\" src -d lib",
     "coverage": "npm test -- --coverage",
     "minify": "uglifyjs -c -m -- umd/blocksToHyperScript.js > umd/blocksToHyperScript.min.js",
     "postpublish": "npm run clean",
     "posttest": "eslint .",
     "prepublishOnly": "npm run build",
-    "test": "jest"
+    "test": "npm run clean && npm run build && jest"
   },
   "keywords": [],
   "author": "Sanity <hello@sanity.io>",
@@ -28,8 +28,10 @@
     "object-assign": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.16.7",
     "@sanity/block-content-tests": "^0.3.0",
     "babel-eslint": "^10.0.1",
     "browserify": "^16.2.2",
@@ -41,6 +43,7 @@
     "jest": "^24.8.0",
     "prettier": "^1.17.1",
     "rimraf": "^2.6.3",
+    "typescript": "^4.5.4",
     "uglify-js": "^3.5.15",
     "uglifyify": "^5.0.2"
   },

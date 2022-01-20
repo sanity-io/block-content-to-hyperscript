@@ -1,8 +1,8 @@
 /* eslint-disable id-length, max-len */
 const runTests = require('@sanity/block-content-tests')
-const internals = require('../src/internals')
-const blocksToHyperScript = require('../src')
-const getSerializers = require('../src/serializers')
+const internals = require('../lib/internals')
+const blocksToHyperScript = require('../lib')
+const getSerializers = require('../lib/serializers')
 
 const h = blocksToHyperScript.renderNode
 const getImageUrl = blocksToHyperScript.getImageUrl
