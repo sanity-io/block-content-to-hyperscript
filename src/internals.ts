@@ -1,24 +1,17 @@
-const getSerializers = require('./serializers')
-const blocksToNodes = require('./blocksToNodes')
-const getImageUrl = require('./getImageUrl')
-const mergeSerializers = require('./mergeSerializers')
+import getSerializers from './serializers'
+export {default as getSerializers} from './serializers'
+import {blocksToNodes as _blocksToNodes} from './blocksToNodes'
+import {getImageUrl} from './getImageUrl'
+export {getImageUrl} from './getImageUrl'
+import {mergeSerializers} from './mergeSerializers'
+export {mergeSerializers} from './mergeSerializers'
 
-module.exports = {
-  blocksToNodes: (renderNode, props, defaultSerializers, serializeSpan) => {
-    if (defaultSerializers) {
-      return blocksToNodes(renderNode, props, defaultSerializers, serializeSpan)
-    }
+export function blocksToNodes(renderNode, props, defaultSerializers, serializeSpan) {
+  if (defaultSerializers) {
+    return _blocksToNodes(renderNode, props, defaultSerializers, serializeSpan)
+  }
 
-    // Backwards-compatibility
-    const serializers = getSerializers(renderNode)
-    return blocksToNodes(
-      renderNode,
-      props,
-      serializers.defaultSerializers,
-      serializers.serializeSpan
-    )
-  },
-  getSerializers,
-  getImageUrl,
-  mergeSerializers
+  // Backwards-compatibility
+  const serializers = getSerializers(renderNode)
+  return _blocksToNodes(renderNode, props, serializers.defaultSerializers, serializers.serializeSpan)
 }

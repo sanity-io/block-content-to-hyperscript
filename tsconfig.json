@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "umd",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "moduleResolution": "Node",
     "noEmit": true,
   },
 }

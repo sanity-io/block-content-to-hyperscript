@@ -1,6 +1,6 @@
 const defaultMarks = ['strong', 'em', 'code', 'underline', 'strike-through']
 
-const buildMarksTree = block => {
+export const buildMarksTree = block => {
   const {children, markDefs} = block
   if (!children || !children.length) {
     return []
@@ -146,5 +146,3 @@ function findLastParentNode(nodes) {
 
   return undefined
 }
-
-module.exports = buildMarksTree

@@ -1,7 +1,7 @@
-const objectAssign = require('object-assign')
-const getImageUrl = require('./getImageUrl')
+import objectAssign from 'object-assign'
+import {getImageUrl} from './getImageUrl'
 
-module.exports = (h, serializerOpts) => {
+export default function getSerializers(h, serializerOpts) {
   const serializeOptions = serializerOpts || {useDashedStyles: false}
 
   // Low-level block serializer

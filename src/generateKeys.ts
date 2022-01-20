@@ -1,6 +1,6 @@
-const objectAssign = require('object-assign')
+import objectAssign from 'object-assign'
 
-module.exports = blocks => {
+export function generateKeys(blocks:any) {
   return blocks.map(block => {
     if (block._key) {
       return block
