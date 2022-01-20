@@ -1,4 +1,4 @@
-const objectAssign = require('object-assign')
+import objectAssign from 'object-assign'
 const isDefined = (val: string) => typeof val !== 'undefined'
 
 // Recursively merge/replace default serializers with user-specified serializers
