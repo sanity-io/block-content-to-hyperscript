@@ -159,6 +159,42 @@ describe('internals', () => {
     )
   })
 
+  test('can configure no container wrapper', () => {
+    const blocks = [
+      {
+        _type: 'block',
+        markDefs: [],
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            marks: [],
+            text: 'Hello'
+          }
+        ]
+      },
+      {
+        _type: 'block',
+        markDefs: [],
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            marks: [],
+            text: 'There'
+          }
+        ]
+      }
+    ]
+
+    const fn = () =>
+      blocksToHyperScript({
+        blocks,
+        renderContainer: false
+      })
+    expect(fn()).toEqual('<p>Hello</p><p>There</p>')
+  })
+
   test('should output a custom rendering for unknown types if unknownType serializer given, and ignoreUnknownTypes is set', () => {
     const fn = () =>
       render({
