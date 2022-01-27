@@ -18,7 +18,11 @@ const renderNode = (serializer, properties, children) => {
 const {defaultSerializers, serializeSpan} = getSerializers(renderNode, {useDashedStyles: true})
 
 const blockContentToHyperscript = options => {
-  return blocksToNodes(renderNode, options, defaultSerializers, serializeSpan)
+  const nodes = blocksToNodes(renderNode, options, defaultSerializers, serializeSpan)
+  if (options.renderContainer === false) {
+    return nodes.innerHTML
+  }
+  return nodes
 }
 
 // Expose default serializers to the user

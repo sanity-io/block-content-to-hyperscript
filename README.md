@@ -38,6 +38,7 @@ client.fetch('*[_type == "article"][0]').then(article => {
 ## Options
 
 - `className` - When more than one block is given, a container node has to be created. Passing a `className` will pass it on to the container. Note: see `renderContainerOnSingleChild`.
+- `renderContainer` - Pass `false` if you do not wish to have the content wrapped in a containing element (default div). Default `true`.
 - `renderContainerOnSingleChild` - When a single block is given as input, the default behavior is to not render any container. If you always want to render the container, pass `true`.
 - `serializers` - Specifies the functions to use for rendering content. Merged with default serializers.
 - `serializers.types` - Serializers for block types, see example above
