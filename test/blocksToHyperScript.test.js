@@ -110,6 +110,25 @@ describe('internals', () => {
     ).toEqual('<p>Rush</p>')
   })
 
+  test('gracefully handles blocks with missing `markDefs`', () => {
+    expect(
+      render({
+        blocks: [
+          {
+            _type: 'block',
+            children: [
+              {
+                _type: 'span',
+                text: 'Rush',
+                marks: ['foo']
+              }
+            ]
+          }
+        ]
+      })
+    ).toEqual('<p><span>Rush</span></p>')
+  })
+
   test('should error on unknown types if ignoreUnknownTypes is set to false', () => {
     expect(() =>
       render({
