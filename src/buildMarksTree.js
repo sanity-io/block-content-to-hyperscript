@@ -44,7 +44,7 @@ const buildMarksTree = block => {
         _type: 'span',
         _key: span._key,
         children: [],
-        mark: markDefs.find(def => def._key === mark) || mark,
+        mark: (markDefs || []).find(def => def._key === mark) || mark,
         markKey: mark
       }
 
